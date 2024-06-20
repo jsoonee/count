@@ -1,0 +1,25 @@
+.header {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .title {
+    margin-left: 0.5rem;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    .config-buttons {
+      display: flex;
+      flex-direction: row;
+      .icon-button {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
