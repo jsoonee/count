@@ -1,10 +1,9 @@
-import { useModal } from "../../context/ModalContext";
+// import { useModal } from "../../context/ModalContext";
 import "./modal.scss";
-// import Content from "./Content";
 import React, { useEffect, useState } from "react";
 import AddSub from "./contents/AddSub";
 import Header from "./Header";
-import { Route } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface IModal {
   id: number;
@@ -14,9 +13,11 @@ interface IModal {
 }
 
 export default () => {
+  const { modalType } = useParams();
+  const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
-  const { modalId, setModalId } = useModal();
-
+  // const { modalId, setModalId } = useModal();
+  console.log(modalType);
   const modals: IModal[] = [
     {
       id: 0,
@@ -27,13 +28,14 @@ export default () => {
   ];
 
   useEffect(() => {
-    if (modalId) setOpen(true);
-  }, [modalId]);
+    if (modalType) setOpen(true);
+  }, [modalType]);
 
   function closeModal() {
     setOpen(false);
     setTimeout(() => {
-      setModalId(0);
+      // setModalId(0);
+      navigate(-1);
     }, 200);
   }
 
@@ -49,8 +51,9 @@ export default () => {
     }
   }
 
-  if (!modalId) return;
-  const { path, title, content } = modals[modalId - 1];
+  const modal = modals.find(m => m.path === modalType)
+  if (!modal) return;
+  const { title, content } = modal;
   return (
     <div
       className="modal-overlay"
@@ -60,8 +63,7 @@ export default () => {
     >
       <section className="modal-content">
         <Header title={title} closeModal={closeModal} />
-        {/* {content} */}
-        <Route path={`/${path}`} element={content} />
+        {content}
       </section>
     </div>
   );
