@@ -1,3 +1,3 @@
-import NoSub from "../components/main/NoSub";
+import Main from "../components/main";
 
-export default () => <NoSub />;
+export default () => <Main />;

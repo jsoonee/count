@@ -1,7 +1,7 @@
 .modal-overlay {
   width: 100vw;
   height: 100vh;
-  background-color: var(--bg-color-alpha);
+  background-color: var(--color-blackA5);
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   justify-content: center;
   z-index: 1000;
   opacity: 0;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 
   .modal-content {
     padding: 1.5rem;
@@ -31,7 +31,6 @@
         top: 0.75rem;
         right: 0.75rem;
       }
-
     }
 
     .modal-body {
@@ -59,23 +58,6 @@
     .modal-footer {
       display: flex;
       justify-content: flex-end;
-      .modal-button {
-        font-size: 1rem;
-        height: 2.5rem;
-        padding: 0 1rem;
-        border-radius: 0.375rem;
-        &-pri {
-          background-color: var(--modalPriButton-bg-color);
-          margin-right: 0.75rem;
-          &:hover {
-            background-color: var(--modalPriButton-bg-color-hover);
-          }
-        }
-        &-alt:hover {
-          background-color: var(--modalAltButton-bg-color-hover);
-        }
-      }
     }
-
   }
 }

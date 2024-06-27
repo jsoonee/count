@@ -16,8 +16,6 @@ export default () => {
   const { modalType } = useParams();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
-  // const { modalId, setModalId } = useModal();
-  console.log(modalType);
   const modals: IModal[] = [
     {
       id: 0,
@@ -31,23 +29,26 @@ export default () => {
     if (modalType) setOpen(true);
   }, [modalType]);
 
-  function closeModal() {
+  function closeModal(isAdded: boolean) {
     setOpen(false);
     setTimeout(() => {
-      // setModalId(0);
-      navigate(-1);
+      if (isAdded) {
+        navigate("/");
+      } else {
+        navigate(-1);
+      }
     }, 200);
   }
 
   function handleOutsideClick(e: React.MouseEvent) {
     if (e.target === e.currentTarget) {
-      closeModal();
+      closeModal(false);
     }
   }
 
   function handleEscClick(e: React.KeyboardEvent) {
     if (e.key === "Escape") {
-      closeModal();
+      closeModal(false);
     }
   }
 

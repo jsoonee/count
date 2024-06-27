@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useItem } from "../../../context/ItemContext";
 
-export default ({ closeModal }: { closeModal: () => void }) => {
+export default ({ closeModal }: { closeModal: (isAdded: boolean) => void }) => {
   const { state, dispatch } = useItem();
   const [name, setName] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -9,17 +9,15 @@ export default ({ closeModal }: { closeModal: () => void }) => {
   function onAddClick(e: React.FormEvent) {
     e.preventDefault()
     if (!name) {
-      console.log("noname");
       setError("Enter a subject name.");
       return;
     }
     if (state.some((sub) => sub.name === name)) {
-      console.log("already existed");
       setError("This subject name is already exists.");
       return;
     }
+    closeModal(true);
     dispatch({ type: "ADD_SUB", newName: name });
-    closeModal();
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -43,14 +41,14 @@ export default ({ closeModal }: { closeModal: () => void }) => {
           <div className="modal-footer">
             <button
               type="submit"
-              className="modal-button modal-button-pri"
+              className="button-rec button-pri"
             >
               Add
             </button>
             <button
               type="button"
-              className="modal-button modal-button-alt"
-              onClick={closeModal}
+              className="button-rec button-alt"
+              onClick={() => closeModal(false)}
             >
               Cancel
             </button>

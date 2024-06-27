@@ -1,14 +1,24 @@
 :root {
   --color-black: #000;
+  --color-blackA06: rgba(0, 0, 0, 0.06);
+  --color-blackA1: rgba(0, 0, 0, 0.1);
+  --color-blackA2: rgba(0, 0, 0, 0.2);
+  --color-blackA3: rgba(0, 0, 0, 0.3);
+  --color-blackA4: rgba(0, 0, 0, 0.4);
   --color-blackA5: rgba(0, 0, 0, 0.5);
-  --color-light: #ccc;
-  --color-lightblue: #2277dd;
-  --color-lightblue2: #1166cc;
-  --color-dark: #333;
+  --color-light: #eee;
+  --color-light2: #ddd;
+  --color-light3: #ccc;
+  --color-blue: #2277dd;
+  --color-blue2: #1166cc;
+  --color-blue3: #1155aa;
+  --color-dark: #111;
+  --color-dark2: #222;
   --color-red: #ee3344;
   --color-red2: #dd4455;
+  --color-red3: crimson;
   --color-white: #fff;
-  --color-whiteA1: rgba(255, 255, 255, 0.1);
+  --color-whiteA1: rgba(127, 94, 94, 0.1);
   --color-whiteA2: rgba(255, 255, 255, 0.2);
   --color-whiteA3: rgba(255, 255, 255, 0.3);
   --color-whiteA4: rgba(255, 255, 255, 0.4);
@@ -20,30 +30,58 @@
 
 html {
   font-family: system-ui, sans-serif;
-  --bg-color-alpha: var(--color-blackA5);
 }
 
 html[data-theme="light"] {
   --color: var(--color-black);
-  --bg-color: var(--color-white);
-  --bg-color-alt: var(--color-light);
+  --color-A1: rgba(0, 0, 0, 0.06);
+  --color-A2: var(--color-blackA1);
+  --bg-color: var(--color-light);
+  --bg-color-alt: var(--color-white);
+  --border-color: var(--color-light2);
+  --border-hover-color: var(--color-light1);
+  --error-color: var(--color-red);
+  --error-color-hover: var(--color-red2);
+  --iconButtonSquare-bg-color-hover: var(--color-blackA1);
+  --iconButtonSquare-bg-color-active: var(--color-blackA2);
+  --iconButtonCircle-bg-color: var(--color-white);
+  --iconButtonCircle-bg-color-hover: var(--color-blackA1);
+  --iconButtonCircle-bg-color-active: var(--color-blackA2);
+  --iconButtonCircle-on-bg-color: var(--color-blue);
+  --iconButtonCircle-on-bg-color-hover: var(--color-blue2);
+  --iconButtonCircle-on-bg-color-active: var(--color-blue3);
+  --iconButtonCircle-on-color: var(--color-white);
+  --button-pri-bg-color: var(--color-blue);
+  --button-pri-bg-color-hover: var(--color-blue2);
+  --button-alt-bg-color-hover: var(--color-light);
+  --button-alt-bg-color-active: var(--color-light2);
+  --placeholder-color: var(--color-whiteA3);
+  --placeholder-hover-color: var(--color-whiteA4);
 }
 
 html[data-theme="dark"] {
   --color: var(--color-white);
+  --color-A1: var(--color-whiteA1);
+  --color-A2: var(--color-whiteA2);
   --bg-color: var(--color-black);
   --bg-color-alt: var(--color-dark);
   --border-color: var(--color-whiteA2);
   --border-hover-color: var(--color-whiteA3);
-  --error-color: var(--color-red);
-  --error-color-hover: var(--color-red2);
-  --iconButtonSquare-bg-color: var(--color-whiteA1);
-  --iconButtonSquare-bg-color-alt: var(--color-whiteA2);
+  --error-color: var(--color-red3);
+  --error-color-hover: var(--color-red);
+  --iconButtonSquare-bg-color-hover: var(--color-whiteA1);
+  --iconButtonSquare-bg-color-active: var(--color-whiteA2);
   --iconButtonCircle-bg-color: var(--color-whiteA2);
-  --iconButtonCircle-bg-color-alt: var(--color-whiteA3);
-  --modalPriButton-bg-color: var(--color-lightblue);
-  --modalPriButton-bg-color-hover: var(--color-lightblue2);
-  --modalAltButton-bg-color-hover: var(--color-whiteA1);
+  --iconButtonCircle-bg-color-hover: var(--color-whiteA3);
+  --iconButtonCircle-bg-color-active: var(--color-whiteA4);
+  --iconButtonCircle-on-bg-color: var(--color-blue);
+  --iconButtonCircle-on-bg-color-hover: var(--color-blue2);
+  --iconButtonCircle-on-bg-color-active: var(--color-blue3);
+  --iconButtonCircle-on-color: var(--color-white);
+  --button-pri-bg-color: var(--color-blue);
+  --button-pri-bg-color-hover: var(--color-blue2);
+  --button-alt-bg-color-hover: var(--color-dark);
+  --button-alt-bg-color-active: var(--color-dark2);
   --placeholder-color: var(--color-whiteA3);
   --placeholder-hover-color: var(--color-whiteA4);
 }
@@ -58,20 +96,112 @@ body {
 button {
   color: var(--color);
   font-size: 1rem;
-  background: transparent;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition-property: background-color, color;
+  transition-duration: 0.2s;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
   margin: 0;
 }
 
+svg {
+  display: block;
+}
+
+/* 
+.button-ell {
+  border-radius: 2.5rem;
+} */
+
+.button-rec {
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.375rem;
+}
+.button-rec .inner-icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.button-pri {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  margin-right: 0.75rem;
+}
+.button-pri:hover {
+  background-color: var(--color-blue2);
+}
+.button-pri:active {
+  background-color: var(--color-blue3);
+}
+
+.button-alt:hover {
+  background-color: var(--color-A1);
+}
+.button-alt:active {
+  background-color: var(--color-A2);
+}
+
+.card {
+  background-color: var(--bg-color-alt);
+}
+
+.icon-button {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-button > svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.icon-button-circle {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--iconButtonCircle-bg-color);
+}
+
+.icon-button-circle:hover {
+  background-color: var(--iconButtonCircle-bg-color-hover);
+}
+.icon-button-circle:active {
+  background-color: var(--iconButtonCircle-bg-color-active);
+}
+
+.icon-button-circle-on {
+  background-color: var(--iconButtonCircle-on-bg-color);
+  color: var(--iconButtonCircle-on-color);
+}
+.icon-button-circle-on:hover {
+  background-color: var(--iconButtonCircle-on-bg-color-hover);
+}
+.icon-button-circle-on:active {
+  background-color: var(--iconButtonCircle-on-bg-color-active);
+}
+
+.icon-button-square {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.3rem;
+}
+
 .input {
+  outline: none;
+  background-color: transparent;
   border: 2px solid var(--border-color);
   transition-property: border-color, color;
-  transition-duration: 0.15s;
+  transition-duration: 0.2s;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  color: var(--color);
 }
 
 .input::placeholder {
@@ -94,12 +224,12 @@ h1 {
   color: var(--placeholder-hover-color);
 }
 
+.input-md {
+  font-size: 1rem;
+  height: 2.5rem;
+}
+
 .input-lg {
-  outline: none;
   font-size: 1.125rem;
-  padding: 0 1rem;
   height: 3rem;
-  background-color: transparent;
-  border-radius: 0.5rem;
-  color: var(--color);
 }

@@ -1,10 +1,10 @@
 (() => {
   const currentTheme = localStorage.getItem("theme");
-  const prefersTheme = window.matchMedia("(prefers-color-scheme: dark)")
-    .matches
-    ? "dark"
-    : "light";
-  const theme = currentTheme || prefersTheme;
-  console.log(theme);
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+  const theme = currentTheme || (prefersDark.matches ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", theme);
+  function changePrefersTheme() {
+    document.documentElement.setAttribute("data-theme", prefersDark.matches ? "dark" : "light");
+  }
+  prefersDark.addEventListener("change", changePrefersTheme)
 })();

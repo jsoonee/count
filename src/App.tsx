@@ -11,7 +11,7 @@ export default () => {
 
   return (
     <ItemProvider>
-      <ModalProvider>
+      {/* <ModalProvider> */}
         <Routes location={state?.backgroundLocation || location}>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
@@ -23,7 +23,7 @@ export default () => {
             <Route path="/:modalType" element={<Modal />} />
           </Routes>
         )}
-      </ModalProvider>
+      {/* </ModalProvider> */}
     </ItemProvider>
   );
 };
