@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { TablerPlus } from "../../../lib/Icons";
 
-export default () => {  
+export default () => {
+  let location = useLocation();
   return (
-    <Link to="/add">
+    <Link to="/add" state={{ backgroundLocation: location }}>
       <button className="button-rec button-pri add-subject-main">
         <span className="inner-icon">
           <TablerPlus />

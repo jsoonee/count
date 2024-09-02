@@ -3,7 +3,6 @@ import {
   Routes,
   Route,
   useLocation,
-  Navigate,
 } from "react-router-dom";
 import Header from "./components/header";
 import Home from "./pages/Home";
@@ -26,7 +25,7 @@ const RoutesComponent = () => {
     <>
       <Routes location={state?.backgroundLocation || location}>
         <Route path="/" element={<Home />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
       {state?.backgroundLocation && (
         <Routes>
