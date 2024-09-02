@@ -1,29 +1,38 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
+import Header from "./components/header";
+import Home from "./pages/Home";
 import Modal from "./components/modal";
 import { ItemProvider } from "./context/ItemContext";
-import { ModalProvider } from "./context/ModalContext";
-import Layout from "./pages/Layout";
-import Home from "./pages/Home";
 
-export default () => {
+export default () => (
+  <Router>
+    <ItemProvider>
+      <Header />
+      <RoutesComponent />
+    </ItemProvider>
+  </Router>
+);
+
+const RoutesComponent = () => {
   let location = useLocation();
   let state = location.state as { backgroundLocation?: Location };
-
   return (
-    <ItemProvider>
-      {/* <ModalProvider> */}
-        <Routes location={state?.backgroundLocation || location}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes> 
-        {state?.backgroundLocation && (
-          <Routes>
-            <Route path="/:modalType" element={<Modal />} />
-          </Routes>
-        )}
-      {/* </ModalProvider> */}
-    </ItemProvider>
+    <>
+      <Routes location={state?.backgroundLocation || location}>
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route path="/:modalType" element={<Modal />} />
+        </Routes>
+      )}
+    </>
   );
 };

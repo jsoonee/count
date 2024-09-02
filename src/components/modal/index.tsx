@@ -29,10 +29,10 @@ export default () => {
     if (modalType) setOpen(true);
   }, [modalType]);
 
-  function closeModal(isAdded: boolean) {
+  function closeModal(isBack: boolean) {
     setOpen(false);
     setTimeout(() => {
-      if (isAdded) {
+      if (isBack) {
         navigate("/");
       } else {
         navigate(-1);
@@ -52,7 +52,7 @@ export default () => {
     }
   }
 
-  const modal = modals.find(m => m.path === modalType)
+  const modal = modals.find((m) => m.path === modalType);
   if (!modal) return;
   const { title, content } = modal;
   return (
@@ -64,7 +64,9 @@ export default () => {
     >
       <section className="modal-content">
         <Header title={title} closeModal={closeModal} />
-        {content}
+        <div className="modal-body">
+          {content}
+        </div>
       </section>
     </div>
   );

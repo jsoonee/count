@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   IconButton,
   TablerDownload,
@@ -9,14 +9,6 @@ import {
 
 export default () => {
   const [open, setOpen] = useState<boolean>(false);
-
-  // function onSettingsClick() {
-  //   if (open) {
-  //     setTimeout(() => {
-
-  //     });
-  //   }
-  // }
 
   return (
     <div className="buttons">

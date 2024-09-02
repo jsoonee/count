@@ -7,8 +7,13 @@ export default () => {
   return (
     <header className="header">
       <div className="header-left">
-        <IconButton className="icon-button-square button-alt" onClick={() => null}><TablerMenu2 /></IconButton>
-      <Title />
+        <IconButton
+          className="icon-button-square button-alt"
+          onClick={() => null}
+        >
+          <TablerMenu2 />
+        </IconButton>
+        <Title />
       </div>
       <Control />
     </header>

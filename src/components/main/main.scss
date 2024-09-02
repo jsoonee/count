@@ -6,6 +6,17 @@
 
 .subjects-grid {
   display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.subject-container {
+  // cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 4rem;
+  justify-content: space-around;
+  border-radius: 0.5rem;
 }
 
 .subjects-footer {
@@ -19,4 +30,15 @@
 .subjects-add-container {
   background-color: var(--bg-color-alt);
   padding: 1rem;
+}
+
+.subject-header {
+  .form-item-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .item-input {
+    width: 20rem;
+  }
 }
