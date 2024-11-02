@@ -8,6 +8,7 @@ import Header from "./components/header";
 import Home from "./pages/Home";
 import Modal from "./components/modal";
 import { ItemProvider } from "./context/ItemContext";
+import Subject from "./pages/Subject";
 
 export default () => (
   <Router>
@@ -25,6 +26,7 @@ const RoutesComponent = () => {
     <>
       <Routes location={state?.backgroundLocation || location}>
         <Route path="/" element={<Home />} />
+        <Route path="/sub/:id" element={<Subject />} />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
       {state?.backgroundLocation && (

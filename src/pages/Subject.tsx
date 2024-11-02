@@ -4,8 +4,7 @@ import Subject from "../components/main/subject";
 export default () => {
   return (
     <Main>
-      <div>subjects</div>
-      {/* <Subject /> */}
+      <Subject />
     </Main>
   );
 };

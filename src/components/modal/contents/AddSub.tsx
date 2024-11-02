@@ -27,12 +27,14 @@ export default ({ closeModal }: { closeModal: (isAdded: boolean) => void }) => {
 
   return (
     <form onSubmit={onAddClick}>
-      <input
-        className={`input input-lg add-sub-input${error ? " input-error" : ""}`}
-        placeholder="Subject"
-        autoFocus
-        onChange={handleInputChange}
-      />
+      <div className="">
+        <input
+          className={`input input-lg add-sub-input${error ? " input-error" : ""}`}
+          placeholder="Subject"
+          autoFocus
+          onChange={handleInputChange}
+        />
+      </div>
       <div className="modal-error-message">{error}</div>
       <div className="modal-footer">
         <button type="submit" className="button-rec button-pri">

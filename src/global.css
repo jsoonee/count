@@ -9,6 +9,8 @@
   --color-light: #eee;
   --color-light2: #ddd;
   --color-light3: #ccc;
+  --color-grey1: #bbb;
+  --color-grey2: #aaa;
   --color-blue: #2277dd;
   --color-blue2: #1166cc;
   --color-blue3: #1155aa;
@@ -18,10 +20,11 @@
   --color-red2: #dd4455;
   --color-red3: crimson;
   --color-white: #fff;
-  --color-whiteA1: rgba(127, 94, 94, 0.1);
+  --color-whiteA1: rgba(255, 255, 255, 0.1);
   --color-whiteA2: rgba(255, 255, 255, 0.2);
   --color-whiteA3: rgba(255, 255, 255, 0.3);
   --color-whiteA4: rgba(255, 255, 255, 0.4);
+  --color-whiteB1: #f4f4f4;
 }
 
 * {
@@ -36,15 +39,16 @@ html[data-theme="light"] {
   --color: var(--color-black);
   --color-A1: rgba(0, 0, 0, 0.06);
   --color-A2: var(--color-blackA1);
-  --bg-color: var(--color-light);
+  --bg-color: var(--color-white);
   --bg-color-alt: var(--color-white);
   --border-color: var(--color-light2);
   --border-hover-color: var(--color-light1);
   --error-color: var(--color-red);
   --error-color-hover: var(--color-red2);
+  --icon-color-alt: var(--color-grey2);
   --iconButtonSquare-bg-color-hover: var(--color-blackA1);
   --iconButtonSquare-bg-color-active: var(--color-blackA2);
-  --iconButtonCircle-bg-color: var(--color-white);
+  --iconButtonCircle-bg-color: var(--color-light);
   --iconButtonCircle-bg-color-hover: var(--color-blackA1);
   --iconButtonCircle-bg-color-active: var(--color-blackA2);
   --iconButtonCircle-on-bg-color: var(--color-blue);
@@ -57,6 +61,9 @@ html[data-theme="light"] {
   --button-alt-bg-color-active: var(--color-light2);
   --placeholder-color: var(--color-whiteA3);
   --placeholder-hover-color: var(--color-whiteA4);
+  --box-bg-color: var(--color-light);
+  --box-bg-color-hover: var(--color-blackA1);
+  --box-bg-color-active: var(--color-blackA2);
 }
 
 html[data-theme="dark"] {
@@ -69,6 +76,7 @@ html[data-theme="dark"] {
   --border-hover-color: var(--color-whiteA3);
   --error-color: var(--color-red2);
   --error-color-hover: var(--color-red);
+  --icon-color-alt: var(--color-light);
   --iconButtonSquare-bg-color-hover: var(--color-whiteA1);
   --iconButtonSquare-bg-color-active: var(--color-whiteA2);
   --iconButtonCircle-bg-color: var(--color-whiteA2);
@@ -84,6 +92,9 @@ html[data-theme="dark"] {
   --button-alt-bg-color-active: var(--color-dark2);
   --placeholder-color: var(--color-whiteA3);
   --placeholder-hover-color: var(--color-whiteA4);
+  --box-bg-color: var(--color-dark);
+  --box-bg-color-hover: var(--color-whiteA1);
+  --box-bg-color-active: var(--color-whiteA2);
 }
 
 body {
@@ -155,6 +166,8 @@ svg {
 
 .card {
   background-color: var(--bg-color-alt);
+  transition-property: background-color, color;
+  transition-duration: 0.2s;
 }
 
 .icon-button {
@@ -199,14 +212,15 @@ svg {
 }
 
 .input {
-  outline: none;
   background-color: transparent;
   border: 2px solid var(--border-color);
   transition-property: border-color, color;
   transition-duration: 0.2s;
   border-radius: 0.5rem;
-  padding: 0 1rem;
   color: var(--color);
+  outline: none;
+  position: relative;
+  padding: 0;
 }
 
 .input::placeholder {
