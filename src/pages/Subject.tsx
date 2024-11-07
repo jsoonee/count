@@ -1,10 +1,10 @@
 import Main from "../components/main";
-import Subject from "../components/main/subject";
+import Items from "../components/main/items";
 
 export default () => {
   return (
     <Main>
-      <Subject />
+      <Items />
     </Main>
   );
 };

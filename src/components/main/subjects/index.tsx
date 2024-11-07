@@ -9,8 +9,8 @@ export default () => {
     <>
       {list.length ? (
         <div className="subjects-grid">
-          {list.map(({ id, name, items }, index) => (
-            <Link key={index} to={`/sub/${id}`}>
+          {list.map(({ subjectId, name, items }) => (
+            <Link key={subjectId} to={`/sub/${subjectId}`}>
               <div className="card subject-container">
                 <div className="subject-name">{name}</div>
                 <div className="subject-count">{items.length}</div>

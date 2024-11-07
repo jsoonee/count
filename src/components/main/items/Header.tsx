@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useItem } from "../../../context/ItemContext";
-import { useNavigate, useParams } from "react-router-dom";
 import { TablerSearch, TablerX } from "../../../lib/Icons";
 
-export default () => {
+export default ({ id }: { id: string | undefined }) => {
   const [name, setName] = useState<string>("");
-  const { id } = useParams();
-  const { list, dispatch } = useItem();
-  const navigate = useNavigate();
-  const items = id && list.find((sub) => sub.id === +id);
-  useEffect(() => {
-    if (!items) navigate("/");
-  });
+  const { dispatch } = useItem();
+  // const navigate = useNavigate();
+  // const items = id && list.find((sub) => sub.id === id);
+  // useEffect(() => {
+  //   if (!items) navigate("/");
+  // });
   // function onItemSubmit(e: React.FormEvent) {
   //   e.preventDefault();
   //   if (!id) return;
@@ -24,8 +22,19 @@ export default () => {
   //   console.log(list);
   // }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      dispatch({
+        type: "ADD_ITEM",
+        isCurrentSub: true,
+        sid: id,
+        newName: name,
+      });
+    }
+  }
+
   return (
-    <header className="subject-header">
+    <section className="subject-header">
       <div className="item-search">
         <div className="input-icon">
           <TablerSearch />
@@ -36,11 +45,12 @@ export default () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setName(e.target.value)
           }
+          onKeyDown={handleKeyDown}
         />
         <div className="input-icon button-clear">
           <TablerX />
         </div>
       </div>
-    </header>
+    </section>
   );
 };

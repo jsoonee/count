@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 
 interface IItem {
-  id: number;
+  itemId: number;
   name: string;
   count: number;
   memo: string;
@@ -11,7 +11,7 @@ interface IItem {
 }
 
 interface ISubject {
-  id: number;
+  subjectId: string;
   name: string | undefined;
   items: IItem[];
   created: string;
@@ -19,15 +19,15 @@ interface ISubject {
 }
 
 interface IState {
-  currentSub: number;
+  currentSub: string;
   list: ISubject[];
 }
 
 interface IAction {
   type: string;
   isCurrentSub: boolean;
-  subjectId?: number;
-  itemId?: number;
+  sid?: string;
+  iid?: string;
   newName?: string;
 }
 
@@ -36,22 +36,22 @@ interface IItemReducer extends IState {
 }
 
 const initialState = {
-  currentSub: 0,
+  currentSub: "0",
   list: []
 }
 
 function itemReducer(state: IState, action: IAction): IState {
   const list = state.list;
-  const { type, isCurrentSub, subjectId, itemId, newName } = action;
+  const { type, isCurrentSub, sid, iid, newName } = action;
   const now = new Date().toISOString();
   switch (type) {
     case "ADD_SUB":
       return {
-        currentSub: 0,
+        currentSub: "0",
         list: [
           ...list,
           {
-            id: nextId++,
+            subjectId: nextId++ + "",
             name: newName,
             items: [],
             created: now,
@@ -61,20 +61,20 @@ function itemReducer(state: IState, action: IAction): IState {
       };
     case "EDIT_SUBNAME":
       return {
-        currentSub: isCurrentSub && subjectId ? subjectId : 0,
+        currentSub: isCurrentSub && sid ? sid : "0",
         list: list.map((sub) =>
-          sub.id === subjectId ? { ...sub, name: newName, updated: now } : sub
+          sub.subjectId === sid ? { ...sub, name: newName, updated: now } : sub
         ),
       };
     case "DELETE_SUB":
       return {
-        currentSub: 0,
-        list: list.filter((sub) => sub.id !== action.subjectId),
+        currentSub: "0",
+        list: list.filter((sub) => sub.subjectId !== sid),
       };
     case "ADD_ITEM":
       return {
-        currentSub: subjectId || 0,
-        list: list.map(sub => sub.id === subjectId ? { ...sub, items: [...sub.items, {id: nextIid++, name: newName || nextIid+"", count: 1, memo: "", star: false, created: now, updated: now}]} : sub)
+        currentSub: sid || "0",
+        list: list.map(sub => sub.subjectId === sid ? { ...sub, items: [...sub.items, {itemId: nextIid++, name: newName || nextIid+"", count: 1, memo: "", star: false, created: now, updated: now}]} : sub)
       }
     default:
       return state;
@@ -82,7 +82,7 @@ function itemReducer(state: IState, action: IAction): IState {
 }
 
 const ItemContext = createContext<IItemReducer>({
-  currentSub: 0,
+  currentSub: "0",
   list: [],
   dispatch: () => null,
 });

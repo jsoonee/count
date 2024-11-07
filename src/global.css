@@ -14,8 +14,9 @@
   --color-blue: #2277dd;
   --color-blue2: #1166cc;
   --color-blue3: #1155aa;
-  --color-dark: #111;
-  --color-dark2: #222;
+  --color-dark: #090909;
+  --color-dark2: #111;
+  --color-dark3: #222;
   --color-red: #ee3344;
   --color-red2: #dd4455;
   --color-red3: crimson;
@@ -70,8 +71,8 @@ html[data-theme="dark"] {
   --color: var(--color-white);
   --color-A1: var(--color-whiteA2);
   --color-A2: var(--color-whiteA3);
-  --bg-color: var(--color-black);
-  --bg-color-alt: var(--color-dark2);
+  --bg-color: var(--color-dark);
+  --bg-color-alt: var(--color-dark3);
   --border-color: var(--color-whiteA2);
   --border-hover-color: var(--color-whiteA3);
   --error-color: var(--color-red2);
@@ -92,7 +93,7 @@ html[data-theme="dark"] {
   --button-alt-bg-color-active: var(--color-dark2);
   --placeholder-color: var(--color-whiteA3);
   --placeholder-hover-color: var(--color-whiteA4);
-  --box-bg-color: var(--color-dark);
+  --box-bg-color: var(--color-dark3);
   --box-bg-color-hover: var(--color-whiteA1);
   --box-bg-color-active: var(--color-whiteA2);
 }
