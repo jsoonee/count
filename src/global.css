@@ -43,9 +43,10 @@ html[data-theme="light"] {
   --bg-color: var(--color-white);
   --bg-color-alt: var(--color-white);
   --border-color: var(--color-light2);
-  --border-hover-color: var(--color-light1);
+  --border-hover-color: var(--color-light3);
   --error-color: var(--color-red);
   --error-color-hover: var(--color-red2);
+  --icon-color: var(--color-dark);
   --icon-color-alt: var(--color-grey2);
   --iconButtonSquare-bg-color-hover: var(--color-blackA1);
   --iconButtonSquare-bg-color-active: var(--color-blackA2);
@@ -77,7 +78,8 @@ html[data-theme="dark"] {
   --border-hover-color: var(--color-whiteA3);
   --error-color: var(--color-red2);
   --error-color-hover: var(--color-red);
-  --icon-color-alt: var(--color-light);
+  --icon-color: var(--color-light)
+  --icon-color-alt: var(--color-grey1);
   --iconButtonSquare-bg-color-hover: var(--color-whiteA1);
   --iconButtonSquare-bg-color-active: var(--color-whiteA2);
   --iconButtonCircle-bg-color: var(--color-whiteA2);
@@ -160,9 +162,11 @@ svg {
 
 .button-alt:hover {
   background-color: var(--color-A1);
+  color: var(--color);
 }
 .button-alt:active {
   background-color: var(--color-A2);
+  color: var(--color);
 }
 
 .card {

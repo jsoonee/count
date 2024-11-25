@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 
 interface IItem {
-  itemId: number;
+  itemId: string;
   name: string;
   count: number;
   memo: string;
@@ -37,8 +37,8 @@ interface IItemReducer extends IState {
 
 const initialState = {
   currentSub: "0",
-  list: []
-}
+  list: [],
+};
 
 function itemReducer(state: IState, action: IAction): IState {
   const list = state.list;
@@ -74,8 +74,40 @@ function itemReducer(state: IState, action: IAction): IState {
     case "ADD_ITEM":
       return {
         currentSub: sid || "0",
-        list: list.map(sub => sub.subjectId === sid ? { ...sub, items: [...sub.items, {itemId: nextIid++, name: newName || nextIid+"", count: 1, memo: "", star: false, created: now, updated: now}]} : sub)
-      }
+        list: list.map((sub) =>
+          sub.subjectId === sid
+            ? {
+                ...sub,
+                items: [
+                  ...sub.items,
+                  {
+                    itemId: nextIid++ + "",
+                    name: newName || nextIid + "",
+                    count: 1,
+                    memo: "",
+                    star: false,
+                    created: now,
+                    updated: now,
+                  },
+                ],
+              }
+            : sub
+        ),
+      };
+    case "INCREMENT":
+      return {
+        currentSub: sid || "0",
+        list: list.map((sub) =>
+          sub.subjectId === sid
+            ? {
+                ...sub,
+                items: sub.items.map((it) =>
+                  it.itemId === iid ? { ...it, count: it.count + 1 } : it
+                ),
+              }
+            : sub
+        ),
+      };
     default:
       return state;
   }

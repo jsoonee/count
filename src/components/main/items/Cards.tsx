@@ -8,8 +8,11 @@ export default ({ id }: { id: string | undefined }) => {
         <div className="items-grid">
           {list
             .find(({ subjectId }) => subjectId === id)
-            ?.items.map(({ itemId, name }) => (
-              <div key={itemId}>{name}</div>
+            ?.items.map(({ itemId, name, count }) => (
+              <div key={itemId}>
+              <div>{name}</div>
+              <div>{count}</div>
+              </div>
             ))}
         </div>
       ) : (

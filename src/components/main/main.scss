@@ -47,6 +47,7 @@
 .item-search {
   display: flex;
   position: relative;
+  align-items: center;
 }
 
 .input-icon {
@@ -61,7 +62,7 @@
 
 .item-input {
   padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  padding-right: 2.75rem;
 }
 
 .button-clear {
@@ -69,6 +70,8 @@
     width: 1.25rem;
     height: 1.25rem;
   }
+  position: absolute;
   right: 0;
-  padding: 0 0.875rem;
+  margin-right: 0.5rem;
+  color: var(--icon-color);
 }
