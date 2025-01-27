@@ -1,8 +1,12 @@
+import Header from "../components/header";
 import Main from "../components/main";
 import Subjects from "../components/main/subjects";
 
 export default () => (
-  <Main>
-    <Subjects />
-  </Main>
+  <>
+    <Header title="cnt" />
+    <Main>
+      <Subjects />
+    </Main>
+  </>
 );

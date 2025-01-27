@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { useItem } from "../../../context/ItemContext";
+// import { useNavigate } from "react-router";
 
-export default ({ closeModal }: { closeModal: (isAdded: boolean) => void }) => {
-  const { list, dispatch } = useItem();
+export default ({
+  closeModal,
+}: {
+  closeModal: () => void;
+}) => {
+  const { currentSub, list, dispatch } = useItem();
   const [name, setName] = useState<string>("");
   const [error, setError] = useState<string>("");
+  // const navigate = useNavigate();
 
   function onAddClick(e: React.FormEvent) {
     e.preventDefault();
@@ -16,8 +22,8 @@ export default ({ closeModal }: { closeModal: (isAdded: boolean) => void }) => {
       setError("This subject name is already exists.");
       return;
     }
-    closeModal(true);
-    dispatch({ isCurrentSub: false, type: "ADD_SUB", newName: name });
+    dispatch({ type: "ADD_SUB", newName: name });
+    closeModal();
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -29,7 +35,9 @@ export default ({ closeModal }: { closeModal: (isAdded: boolean) => void }) => {
     <form onSubmit={onAddClick}>
       <div className="">
         <input
-          className={`input input-lg add-sub-input${error ? " input-error" : ""}`}
+          className={`input input-lg add-sub-input${
+            error ? " input-error" : ""
+          }`}
           placeholder="Subject"
           autoFocus
           onChange={handleInputChange}
@@ -43,7 +51,7 @@ export default ({ closeModal }: { closeModal: (isAdded: boolean) => void }) => {
         <button
           type="button"
           className="button-rec button-alt"
-          onClick={() => closeModal(false)}
+          onClick={() => closeModal()}
         >
           Cancel
         </button>

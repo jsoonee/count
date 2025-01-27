@@ -3,7 +3,7 @@ import "./modal.scss";
 import React, { useEffect, useState } from "react";
 import AddSub from "./contents/AddSub";
 import Header from "./Header";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 
 interface IModal {
   id: number;
@@ -29,26 +29,22 @@ export default () => {
     if (modalType) setOpen(true);
   }, [modalType]);
 
-  function closeModal(isBack: boolean) {
+  function closeModal() {
     setOpen(false);
     setTimeout(() => {
-      if (isBack) {
-        navigate("/");
-      } else {
-        navigate(-1);
-      }
+      navigate(-1);
     }, 200);
   }
 
   function handleOutsideClick(e: React.MouseEvent) {
     if (e.target === e.currentTarget) {
-      closeModal(false);
+      closeModal();
     }
   }
 
   function handleEscClick(e: React.KeyboardEvent) {
     if (e.key === "Escape") {
-      closeModal(false);
+      closeModal();
     }
   }
 
@@ -64,9 +60,7 @@ export default () => {
     >
       <section className="modal-content">
         <Header title={title} closeModal={closeModal} />
-        <div className="modal-body">
-          {content}
-        </div>
+        <div className="modal-body">{content}</div>
       </section>
     </div>
   );

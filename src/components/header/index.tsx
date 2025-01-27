@@ -3,7 +3,8 @@ import Control from "./Control";
 import Title from "./Title";
 import "./header.scss";
 
-export default () => {
+
+export default ({title}: {title: string}) => {
   return (
     <header className="header">
       <div className="header-left">
@@ -13,7 +14,7 @@ export default () => {
         >
           <TablerMenu2 />
         </IconButton>
-        <Title />
+        <Title title={title} />
       </div>
       <Control />
     </header>

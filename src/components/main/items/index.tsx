@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import Header from "./Header";
 import { useItem } from "../../../context/ItemContext";
 import Cards from "./Cards";

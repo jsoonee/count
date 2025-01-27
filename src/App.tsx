@@ -3,8 +3,7 @@ import {
   Routes,
   Route,
   useLocation,
-} from "react-router-dom";
-import Header from "./components/header";
+} from "react-router";
 import Home from "./pages/Home";
 import Modal from "./components/modal";
 import { ItemProvider } from "./context/ItemContext";
@@ -13,7 +12,6 @@ import Subject from "./pages/Subject";
 export default () => (
   <Router>
     <ItemProvider>
-      <Header />
       <RoutesComponent />
     </ItemProvider>
   </Router>

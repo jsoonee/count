@@ -25,7 +25,6 @@ interface IState {
 
 interface IAction {
   type: string;
-  isCurrentSub: boolean;
   sid?: string;
   iid?: string;
   newName?: string;
@@ -36,22 +35,30 @@ interface IItemReducer extends IState {
 }
 
 const initialState = {
-  currentSub: "0",
+  currentSub: "",
   list: [],
 };
 
 function itemReducer(state: IState, action: IAction): IState {
   const list = state.list;
-  const { type, isCurrentSub, sid, iid, newName } = action;
+  const { type, sid, iid, newName } = action;
   const now = new Date().toISOString();
   switch (type) {
-    case "ADD_SUB":
+    case "ENTER_SUB":
       return {
-        currentSub: "0",
+        currentSub: sid || "0",
+        list: list,
+      };
+    case "ADD_SUB":
+      const nextSid = list.length
+        ? String(Math.max(...list.map((sub) => Number(sub.subjectId)))+1) + ""
+        : "0";
+      return {
+        currentSub: nextSid,
         list: [
           ...list,
           {
-            subjectId: nextId++ + "",
+            subjectId: nextSid,
             name: newName,
             items: [],
             created: now,
@@ -61,17 +68,19 @@ function itemReducer(state: IState, action: IAction): IState {
       };
     case "EDIT_SUBNAME":
       return {
-        currentSub: isCurrentSub && sid ? sid : "0",
+        currentSub: sid || "0",
         list: list.map((sub) =>
           sub.subjectId === sid ? { ...sub, name: newName, updated: now } : sub
         ),
       };
     case "DELETE_SUB":
       return {
-        currentSub: "0",
+        currentSub: sid || "0",
         list: list.filter((sub) => sub.subjectId !== sid),
       };
     case "ADD_ITEM":
+      const items = list.find((sub) => sub.subjectId === sid)?.items;
+      const nextIid = items && items.length ? String(Math.max(...items.map((item) => +item.itemId)) + 1) : "0"; 
       return {
         currentSub: sid || "0",
         list: list.map((sub) =>
@@ -81,8 +90,8 @@ function itemReducer(state: IState, action: IAction): IState {
                 items: [
                   ...sub.items,
                   {
-                    itemId: nextIid++ + "",
-                    name: newName || nextIid + "",
+                    itemId: nextIid,
+                    name: newName || nextIid,
                     count: 1,
                     memo: "",
                     star: false,
@@ -128,9 +137,6 @@ export function ItemProvider({ children }: { children: React.ReactNode }) {
     </ItemContext.Provider>
   );
 }
-
-let nextId = 1;
-let nextIid = 1;
 
 export function useItem() {
   return useContext(ItemContext);
