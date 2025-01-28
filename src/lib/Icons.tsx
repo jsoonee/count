@@ -1,4 +1,4 @@
-import type { CSSProperties, SVGProps } from "react";
+import type { CSSProperties, JSX, SVGProps } from "react";
 import "./icons.scss";
 
 interface IButton {

@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useItem } from "../../../context/ItemContext";
-import { TablerSearch, TablerX } from "../../../lib/Icons";
+import { TablerPlus, TablerSearch, TablerX } from "../../../lib/Icons";
 
 export default ({ id }: { id: string | undefined }) => {
   const [value, setValue] = useState<string>("");
+  const [focused, setFocused] = useState<boolean>(false);
   const { list, dispatch } = useItem();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -29,6 +30,10 @@ export default ({ id }: { id: string | undefined }) => {
     }
   }
 
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(e.target.value);
+  }
+
   function onClearClick() {
     setValue("");
     if (inputRef.current) {
@@ -38,8 +43,12 @@ export default ({ id }: { id: string | undefined }) => {
   }
 
   return (
-    <section className="subject-header">
-      <div className="item-input">
+    <section
+      className="subject-header"
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+    >
+      <div className="subject-bar">
         <div className="item-search">
           <div className="input-icon">
             <TablerSearch />
@@ -47,9 +56,7 @@ export default ({ id }: { id: string | undefined }) => {
           <input
             type="text"
             className="input input-lg item-input"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setValue(e.target.value)
-            }
+            onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             ref={inputRef}
           />
@@ -62,6 +69,16 @@ export default ({ id }: { id: string | undefined }) => {
             </button>
           ) : null}
         </div>
+        {!value ||
+        !focused ||
+        list
+          .find(({ subjectId }) => subjectId === id)!
+          .items.some(({ name }) => name === value) ? null : (
+          <div className="item-autocomplete">
+            <TablerPlus />
+            <div className="item-new">add this new item: {value}</div>
+          </div>
+        )}
       </div>
     </section>
   );

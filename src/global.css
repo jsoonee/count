@@ -241,7 +241,7 @@ svg {
 }
 
 .input:focus {
-  border-color: #2277dd;
+  border-color: var(--color-blue);
 }
 
 .input:focus::placeholder {
