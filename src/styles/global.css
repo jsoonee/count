@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+input:focus {
+  box-shadow: none;
+}
+
+button {
+  cursor: pointer;
+}
