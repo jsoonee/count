@@ -5,7 +5,7 @@ import useModalStore from "@/stores/modal";
 import Card from "./Card";
 
 export default function Subjects() {
-  const { subjects } = useSubjectStore();
+  const subjects = useSubjectStore(state => state.subjects);
   const { openModal } = useModalStore();
 
   return (

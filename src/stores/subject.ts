@@ -1,5 +1,6 @@
 import { getItem, setItem } from "@/utils/localStorage";
 import { create } from "zustand";
+import { v4 } from "uuid";
 
 interface ISubject {
   id: string;
@@ -26,7 +27,7 @@ interface SubjectStore {
   currentSubject: string;
   importSubjects: (subjects: ISubject[]) => void;
   setCurrentSubject: (subjectId: string) => void;
-  addSubject: (newSubject: ISubject) => void;
+  addSubject: (subjectName: string) => void;
   editSubject: (subjectId: string, subject: ISubject) => void;
   removeSubject: (subjectId: string) => void;
   addItem: (newItem: IItem) => void;
@@ -44,7 +45,7 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
     setItem("data", subjects);
   }
 
-  const now = new Date().toISOString();
+  const now = () => new Date().toISOString();
 
   return {
     subjects: initialState,
@@ -54,9 +55,22 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
       set({ subjects: subjects });
       setStorage();
     },
-    addSubject: (newSubject) => {
-      set(({ subjects }) => ({ subjects: [newSubject, ...subjects] }));
+    addSubject: (subjectName) => {
+      const nowStr = now();
+      const newSubject = {
+        id: v4(),
+        name: subjectName,
+        items: [],
+        description: "",
+        star: false,
+        created: nowStr,
+        updated: nowStr,
+      };
+      set(({ subjects }) => ({
+        subjects: [newSubject, ...subjects],
+      }));
       setStorage();
+      console.log(get().subjects);
     },
     editSubject: (subjectId, subject) => {
       set(({ subjects }) => ({
@@ -85,6 +99,7 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
       setStorage();
     },
     editItem: (itemId, item) => {
+      console.log("editItem");
       set(({ subjects, currentSubject }) => ({
         subjects: subjects.map((sub) =>
           sub.id === currentSubject
@@ -109,6 +124,7 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
       setStorage();
     },
     countUp: (itemId) => {
+      const nowStr = now();
       set(({ subjects, currentSubject }) => ({
         subjects: subjects.map((sub) =>
           sub.id === currentSubject
@@ -119,11 +135,11 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
                     ? {
                         ...it,
                         count: it.count + 1 < 10 ** 5 ? it.count + 1 : it.count,
-                        updated: now,
+                        updated: nowStr,
                       }
                     : it
                 ),
-                updated: now,
+                updated: nowStr,
               }
             : sub
         ),
@@ -131,6 +147,7 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
       setStorage();
     },
     countDown: (itemId) => {
+      const nowStr = now();
       set(({ subjects, currentSubject }) => ({
         subjects: subjects.map((sub) =>
           sub.id === currentSubject
@@ -141,11 +158,11 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
                     ? {
                         ...it,
                         count: it.count ? it.count - 1 : 0,
-                        updated: now,
+                        updated: nowStr,
                       }
                     : it
                 ),
-                updated: now,
+                updated: nowStr,
               }
             : sub
         ),

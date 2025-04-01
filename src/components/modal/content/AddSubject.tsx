@@ -1,14 +1,19 @@
 import useSubjectStore from "@/stores/subject";
 import { v4 } from "uuid";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useModalStore from "@/stores/modal";
 import Header from "../Header";
 
 export default function AddSubject() {
   const [newName, setNewName] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const { subjects, addSubject } = useSubjectStore();
+  const { subjects, addSubject } = useSubjectStore(state => state);
   const { closeModal } = useModalStore();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -21,15 +26,7 @@ export default function AddSubject() {
       return;
     }
     const now = new Date().toISOString();
-    addSubject({
-      id: v4(),
-      name: newName,
-      items: [],
-      description: "",
-      star: false,
-      created: now,
-      updated: now,
-    });
+    addSubject(newName);
     closeModal();
   }
 
@@ -38,6 +35,7 @@ export default function AddSubject() {
       <Header title="Add a subject" />
       <form onSubmit={handleSubmit}>
         <input
+          ref={inputRef}
           type="text"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setNewName(e.target.value);

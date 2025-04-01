@@ -8,6 +8,9 @@ export default function Card() {
     useSubjectStore();
   const [editId, setEditId] = useState<string>("");
   const [toEdit, setToEdit] = useState<string>("");
+  const [sortBy, setSortBy] = useState<string>("");
+  const [asc, setAsc] = useState<boolean>(false);
+  const [openSort, setOpenSort] = useState<boolean>(false);
 
   function handleClick(id: string) {
     setCurrentSubject(id);
@@ -25,29 +28,81 @@ export default function Card() {
     }
   }
 
-  function editName(subjectId: string, subjectName: string) {
+  function editName(subjectId: string, subjectName: string) {}
+
+  // function sortSubjects() {
+  //   const sorted = [...subjects];
+  //   sorted.sort((a,b) => {
+  //     if (sortBy === "name") {
+  //       return asc
+  //       ? a.name.localeCompare(b.name)
+  //       : b.name.localeCompare(a.name);
+  //     } else if (sortBy === "count") {
+  //       const sumA = a.items.reduce((acc,cur) => acc+cur.count,0);
+  //       const sumB = b.items.reduce((acc,cur) => acc+cur.count,0);
+  //       return asc ? sumA - sumB : sumB - sumA;
+  //     } else if (sortBy === "updated") {
+  //       return asc
+  //         ? a.updated.localeCompare(b.updated)
+  //         : b.updated.localeCompare(a.updated);
+  //     } else {
+  //       return asc
+  //         ? a.created.localeCompare(b.created)
+  //         : b.created.localeCompare(a.created);
+  //     }
+  //   });
+  //   return sorted;
+  // }
+
+  const sorted = [...subjects].sort((a, b) => {
+    if (sortBy === "name") {
+      return asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+    } else if (sortBy === "count") {
+      const sumA = a.items.reduce((acc, cur) => acc + cur.count, 0);
+      const sumB = b.items.reduce((acc, cur) => acc + cur.count, 0);
+      return asc ? sumA - sumB : sumB - sumA;
+    } else if (sortBy === "updated") {
+      return asc
+        ? a.updated.localeCompare(b.updated)
+        : b.updated.localeCompare(a.updated);
+    } else {
+      return asc
+        ? a.created.localeCompare(b.created)
+        : b.created.localeCompare(a.created);
+    }
+  });
+
+  function handleNameSubmit(
+    e: React.FormEvent,
+    subjectId: string,
+    subjectName: string
+  ) {
+    e.preventDefault();
     if (
-      !toEdit ||
-      subjects.some(({ id, name }) => id !== subjectId && name === toEdit) ||
-      toEdit === subjectName
-    )
-      return;
-    const sub = subjects.find(({ id }) => id === subjectId);
-    if (sub) {
-      editSubject(subjectId, { ...sub, name: toEdit });
+      toEdit &&
+      subjects.every(({ id, name }) => id === subjectId || name !== toEdit) &&
+      toEdit !== subjectName
+    ) {
+      const sub = subjects.find(({ id }) => id === subjectId);
+      if (sub) {
+        editSubject(subjectId, { ...sub, name: toEdit });
+      }
     }
     setEditId("");
   }
 
   return (
     <div>
-      {subjects.map(({ id, name }) => (
+      {sorted.map(({ id, name }) => (
         <div className="flex" key={id}>
           {id === editId ? (
-            <div className="flex">
+            <form
+              className="flex"
+              onSubmit={(e) => handleNameSubmit(e, id, name)}
+            >
               <input type="text" value={toEdit} onChange={handleEditChange} />
-              <button onClick={() => editName(id, name)}>ok</button>
-            </div>
+              <button type="submit">ok</button>
+            </form>
           ) : (
             <div onClick={() => handleClick(id)}>{name}</div>
           )}

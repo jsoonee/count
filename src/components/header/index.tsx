@@ -4,7 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import React from "react";
 
 export default function Header() {
-  const { subjects } = useSubjectStore();
+  const subjects = useSubjectStore((state) => state.subjects);
 
   const navigate = useNavigate();
 

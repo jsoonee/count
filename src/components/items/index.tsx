@@ -1,59 +1,65 @@
 import useSubjectStore, { IItem } from "@/stores/subject";
 import { useNavigate } from "@tanstack/react-router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Empty from "./Empty";
 import Header from "./Header";
+import { Route } from "@/routes/sub.$subId";
 
 export default function Items() {
   const navigate = useNavigate();
-  const { subjects, currentSubject, editItem, removeItem, countUp, countDown } =
-    useSubjectStore();
+  const { subId } = Route.useParams();
+  const {
+    subjects,
+    currentSubject,
+    setCurrentSubject,
+    editItem,
+    removeItem,
+    countUp,
+    countDown,
+  } = useSubjectStore((state) => state);
 
   const sub = subjects.find(({ id }) => id === currentSubject);
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [data, setData] = useState<IItem[]>(sub ? sub.items : []);
   const [input, setInput] = useState<string>("");
-  const [sort, setSort] = useState<string>("created");
+  const [sortBy, setSortBy] = useState<string>("created");
   const [asc, setAsc] = useState<boolean>(false);
   const [editId, setEditId] = useState<string>("");
   const [toEdit, setToEdit] = useState<string>("");
 
   useEffect(() => {
-    if (!sub) navigate({ to: "/" });
+    if (subjects.every(({ id }) => id !== subId)) {
+      navigate({ to: "/" });
+    } else {
+      setCurrentSubject(subId);
+    }
   }, []);
 
-  function countChange(e: React.ChangeEvent<HTMLInputElement>, itemId: string) {
-    const newNum = Number(e.target.value.replace(/[^\d]/g, ""));
-    if (newNum >= 10 ** 5) {
-      return;
-    }
+  function countChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    itemId: string,
+    count: number
+  ) {
+    const value = e.target.value;
+    if (!value && !count) return;
+    const num = Number(value);
     const item = sub?.items.find(({ id }) => id === itemId);
-    if (item) {
-      editItem(itemId, { ...item, count: newNum });
+    if (item && Number.isInteger(num) && num < 10 ** 5) {
+      editItem(itemId, { ...item, count: num ? +num : 0 });
     }
   }
 
   function minusClick(itemId: string) {
     const item = sub?.items.find(({ id }) => id === itemId);
-    const now = new Date().toISOString();
     if (item) {
-      editItem(itemId, {
-        ...item,
-        count: item.count ? item.count - 1 : 0,
-        updated: now,
-      });
+      countDown(itemId);
     }
   }
 
   function plusClick(itemId: string) {
     const item = sub?.items.find(({ id }) => id === itemId);
-    const now = new Date().toISOString();
-    if (item && item.count + 1 < 10 ** 5) {
-      editItem(itemId, {
-        ...item,
-        count: item.count + 1,
-        updated: now,
-      });
+    if (item) {
+      countUp(itemId);
     }
   }
 
@@ -63,36 +69,27 @@ export default function Items() {
     }
   }
 
-  function sortData(search: string) {
-    if (!sub) return [];
-    let sorted = [...sub.items];
-    if (search && isSearch) {
-      sorted = sorted.filter(({ name }) => name.toLowerCase().includes(search));
-    }
-    sorted.sort((a, b) => {
-      if (sort === "name") {
-        return asc
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      } else if (sort === "count") {
-        return asc
-          ? a.count - b.count || a.created.localeCompare(b.created)
-          : b.count - a.count || b.created.localeCompare(a.created);
-      } else if (sort === "updated") {
-        return asc
-          ? a.updated.localeCompare(b.updated)
-          : b.updated.localeCompare(a.updated);
-      } else {
-        return asc
-          ? a.created.localeCompare(b.created)
-          : b.created.localeCompare(a.created);
-      }
-    });
-    return sorted;
-  }
-
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
     setToEdit(e.target.value);
+  }
+
+  function handleNameSubmit(
+    e: React.FormEvent,
+    itemId: string,
+    itemName: string
+  ) {
+    e.preventDefault();
+    if (
+      toEdit &&
+      sub?.items.every(({ id, name }) => id === itemId || name !== toEdit) &&
+      toEdit !== itemName
+    ) {
+      const item = sub?.items.find(({ id }) => id === itemId);
+      if (item) {
+        editItem(itemId, { ...item, name: toEdit });
+      }
+    }
+    setEditId("");
   }
 
   function handleNameClick(itemId: string, itemName: string) {
@@ -102,61 +99,97 @@ export default function Items() {
     }
   }
 
-  function editName(itemId: string) {
-    if (
-      !toEdit ||
-      sub?.items.some(({ id, name }) => id !== itemId && name === toEdit)
-    )
-      return;
-    const item = sub?.items.find(({ id }) => id === itemId);
-    if (item) {
-      editItem(itemId, { ...item, name: toEdit });
-    }
-    setEditId("");
-  }
-
   const headerProps = {
     data,
     setData,
-    sort,
-    setSort,
+    sortBy,
+    setSortBy,
     asc,
     setAsc,
     isSearch,
     setIsSearch,
-    sortData,
     input,
     setInput,
   };
 
-  const sorted = sortData(input);
+  const search = isSearch ? input : "";
+
+  const sorted = useMemo(() => {
+    if (!sub) return [];
+    const items = [...sub.items];
+    const sorted = search
+      ? items.filter((item) =>
+          item.name.trim().toLowerCase().includes(input.trim())
+        )
+      : items;
+    console.log(sorted);
+    return sorted.sort((a, b) => {
+      if (sortBy === "name") {
+        return asc
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      } else if (sortBy === "count") {
+        return asc
+          ? a.count - b.count || a.created.localeCompare(b.created)
+          : b.count - a.count || b.created.localeCompare(a.created);
+      } else if (sortBy === "updated") {
+        return asc
+          ? a.updated.localeCompare(b.updated)
+          : b.updated.localeCompare(a.updated);
+      } else {
+        return asc
+          ? a.created.localeCompare(b.created)
+          : b.created.localeCompare(a.created);
+      }
+    });
+  }, [sub, search, sortBy, asc]);
+
+  const inputRefs = useMemo(() => {
+    const refs = {};
+    sorted.forEach(({ id }) => {
+      refs[id] = React.createRef();
+    });
+    return refs;
+  }, [sorted]);
+
+  useEffect(() => {
+    if (editId && inputRefs[editId].current) {
+      inputRefs[editId].current.focus();
+    }
+  }, [editId, inputRefs]);
 
   return (
     <div>
       <Header {...headerProps} />
       {sorted.length ? (
-        sorted.map((item) => (
-          <div className="flex" key={item.id}>
-            {item.id === editId ? (
-              <div className="flex">
-                <input type="text" value={toEdit} onChange={handleNameChange} />
-                <button onClick={() => editName(item.id)}>ok</button>
-              </div>
+        sorted.map(({ id, name, count }) => (
+          <div className="flex" key={id}>
+            {id === editId ? (
+              <form
+                className="flex"
+                onSubmit={(e) => handleNameSubmit(e, id, name)}
+              >
+                <input
+                  type="text"
+                  value={toEdit}
+                  onChange={handleNameChange}
+                  ref={inputRefs[id]}
+                />
+                <button type="submit">ok</button>
+              </form>
             ) : (
-              <div onClick={() => handleNameClick(item.id, item.name)}>
-                {item.name}
-              </div>
+              <div onClick={() => handleNameClick(id, name)}>{name}</div>
             )}
-            <button onClick={() => minusClick(item.id)}>-</button>
+            <button onClick={() => minusClick(id)}>-</button>
             <input
               type="text"
-              value={item.count}
+              value={count}
               inputMode="numeric"
               onKeyDown={handleKeyDown}
-              onChange={(e) => countChange(e, item.id)}
+              onChange={(e) => countChange(e, id, count)}
             />
-            <button onClick={() => plusClick(item.id)}>+</button>
-            <button onClick={() => removeItem(item.id)}>del</button>
+            <button onClick={() => plusClick(id)}>+</button>
+            <button onClick={() => removeItem(id)}>del</button>
           </div>
         ))
       ) : (

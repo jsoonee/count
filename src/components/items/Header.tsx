@@ -4,20 +4,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
 
 export default function Header({
-  setData,
-  sort,
-  setSort,
+  sortBy,
+  setSortBy,
   asc,
   setAsc,
   isSearch,
   setIsSearch,
-  sortData,
   input,
   setInput,
 }) {
   const [error, setError] = useState<string>("");
   const [openSort, setOpenSort] = useState<boolean>(false);
-  const { subjects, currentSubject, addItem, countUp } = useSubjectStore();
+  const { subjects, currentSubject, addItem, countUp } = useSubjectStore(
+    (state) => state
+  );
   const navigate = useNavigate();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -71,13 +71,13 @@ export default function Header({
   }
 
   function handleSortClick(s: string) {
-    s === sort ? setAsc(!asc) : setSort(s);
+    s === sortBy ? setAsc(!asc) : setSortBy(s);
     setOpenSort(false);
   }
 
   return (
     <div className="flex">
-      <button onClick={() => navigate({to: "/"})}>Back</button>
+      <button onClick={() => navigate({ to: "/" })}>Back</button>
       <input
         type="text"
         onKeyDown={handleKeyDown}
@@ -91,7 +91,7 @@ export default function Header({
         onChange={() => setIsSearch(!isSearch)}
       />
       <button onClick={() => setOpenSort(!openSort)} ref={buttonRef}>
-        <span>{sort}</span>
+        <span>{sortBy}</span>
       </button>
       {openSort ? (
         <div ref={dropdownRef}>

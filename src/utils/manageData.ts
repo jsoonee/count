@@ -11,7 +11,7 @@ function exportData() {
   a.remove();
 }
 
-function importData(file) {
+function importData(file: File) {
   if (!file) return;
   const { importSubjects } = useSubjectStore.getState();
 

@@ -1,5 +1,5 @@
 import useModalStore from "@/stores/modal";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Modal() {
   const { content, closeModal } = useModalStore();
@@ -9,6 +9,16 @@ export default function Modal() {
       closeModal();
     }
   }
+
+  useEffect(() => {
+    function handleEscKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    }
+    document.addEventListener("keydown", handleEscKey)
+    return () => document.removeEventListener("keydown", handleEscKey);
+  }, []);
 
   return content ? (
     <div
