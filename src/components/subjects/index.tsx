@@ -6,12 +6,12 @@ import Card from "./Card";
 
 export default function Subjects() {
   const subjects = useSubjectStore(state => state.subjects);
-  const { openModal } = useModalStore();
+  const openModal = useModalStore(state => state.openModal);
 
   return (
-    <>
+    <main className="">
       {subjects.length ? <Card /> : <Empty />}
       <button onClick={() => openModal(<AddSubject />)}>Add</button>
-    </>
+    </main>
   );
 }

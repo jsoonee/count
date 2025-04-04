@@ -8,7 +8,7 @@ export default function AddSubject() {
   const [newName, setNewName] = useState<string>("");
   const [error, setError] = useState<string>("");
   const { subjects, addSubject } = useSubjectStore(state => state);
-  const { closeModal } = useModalStore();
+  const closeModal = useModalStore(state => state.closeModal);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export default function AddSubject() {
       setError("The name is already exists.");
       return;
     }
-    const now = new Date().toISOString();
     addSubject(newName);
     closeModal();
   }
@@ -42,9 +41,9 @@ export default function AddSubject() {
             setError("");
           }}
         />
-        <footer className="flex justify-end">
+        <div className="flex justify-end">
           <button type="submit">Add</button>
-        </footer>
+        </div>
       </form>
     </>
   );

@@ -122,7 +122,6 @@ export default function Items() {
           item.name.trim().toLowerCase().includes(input.trim())
         )
       : items;
-    console.log(sorted);
     return sorted.sort((a, b) => {
       if (sortBy === "name") {
         return asc

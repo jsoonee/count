@@ -25,7 +25,7 @@ export interface IItem {
 interface SubjectStore {
   subjects: ISubject[];
   currentSubject: string;
-  importSubjects: (subjects: ISubject[]) => void;
+  setSubjects: (subjects: ISubject[]) => void;
   setCurrentSubject: (subjectId: string) => void;
   addSubject: (subjectName: string) => void;
   editSubject: (subjectId: string, subject: ISubject) => void;
@@ -51,7 +51,7 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
     subjects: initialState,
     currentSubject: "",
     setCurrentSubject: (subjectId) => set({ currentSubject: subjectId }),
-    importSubjects: (subjects) => {
+    setSubjects: (subjects) => {
       set({ subjects: subjects });
       setStorage();
     },
@@ -61,6 +61,7 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
         id: v4(),
         name: subjectName,
         items: [],
+        sort: {by: "created", asc: false},
         description: "",
         star: false,
         created: nowStr,

@@ -1,8 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const sorts = ["name", "count", "created", "updated"];
 
-export default function Sort({ subjectId, sortBy, setSortBy, asc, setAsc }) {
+interface ISort {
+  subjectId?: string;
+  sortBy: string;
+  setSortBy: React.Dispatch<React.SetStateAction<string>>;
+  asc: boolean;
+  setAsc: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Sort({subjectId, sortBy, setSortBy, asc, setAsc}: ISort) {
   const [openSort, setOpenSort] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);

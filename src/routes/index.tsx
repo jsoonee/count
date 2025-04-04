@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Main from "@/components/main";
-import Modal from "@/components/modal";
+import Subjects from "@/components/subjects";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -8,9 +7,6 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
   return (
-    <>
-      <Main />
-      <Modal />
-    </>
+    <Subjects />
   );
 }

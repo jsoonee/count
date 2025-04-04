@@ -13,13 +13,13 @@ function exportData() {
 
 function importData(file: File) {
   if (!file) return;
-  const { importSubjects } = useSubjectStore.getState();
+  const { setSubjects } = useSubjectStore.getState();
 
   const reader = new FileReader();
   reader.onload = () => {
     try {
       const parsedData = JSON.parse(reader.result as string);
-      importSubjects(parsedData);
+      setSubjects(parsedData);
     } catch (e) {
       console.error(e);
     }

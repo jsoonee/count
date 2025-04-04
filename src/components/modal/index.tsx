@@ -2,7 +2,7 @@ import useModalStore from "@/stores/modal";
 import React, { useEffect } from "react";
 
 export default function Modal() {
-  const { content, closeModal } = useModalStore();
+  const { content, closeModal } = useModalStore(state => state);
 
   function handleOverlayClick(e: React.MouseEvent) {
     if (e.target === e.currentTarget) {
@@ -28,7 +28,7 @@ export default function Modal() {
     >
       <div
         id="modal-content"
-        className="p-[1.5rem] sm:max-w-[425px] bg-white rounded-lg"
+        className="p-6 sm:max-w-[425px] bg-white rounded-lg"
       >
         {content}
       </div>

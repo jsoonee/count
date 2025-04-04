@@ -2,6 +2,7 @@ import useSubjectStore from "@/stores/subject";
 import { useNavigate } from "@tanstack/react-router";
 import React, { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
+import Sort from "../Sort";
 
 export default function Header({
   sortBy,
@@ -14,7 +15,7 @@ export default function Header({
   setInput,
 }) {
   const [error, setError] = useState<string>("");
-  const [openSort, setOpenSort] = useState<boolean>(false);
+  // const [openSort, setOpenSort] = useState<boolean>(false);
   const { subjects, currentSubject, addItem, countUp } = useSubjectStore(
     (state) => state
   );
@@ -23,25 +24,30 @@ export default function Header({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const sorts = ["name", "count", "created", "updated"];
+  // const sorts = ["name", "count", "created", "updated"];
 
-  function handleOutsideClick(e: MouseEvent) {
-    if (
-      openSort &&
-      dropdownRef.current &&
-      !dropdownRef.current.contains(e.target as Node) &&
-      !buttonRef.current?.contains(e.target as Node)
-    ) {
-      setOpenSort(false);
-    }
-  }
+  // function handleOutsideClick(e: MouseEvent) {
+  //   if (
+  //     openSort &&
+  //     dropdownRef.current &&
+  //     !dropdownRef.current.contains(e.target as Node) &&
+  //     !buttonRef.current?.contains(e.target as Node)
+  //   ) {
+  //     setOpenSort(false);
+  //   }
+  // }
 
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  });
+  // useEffect(() => {
+  //   document.addEventListener("click", handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener("click", handleOutsideClick);
+  //   };
+  // });
+
+  // function handleSortClick(s: string) {
+  //   s === sortBy ? setAsc(!asc) : setSortBy(s);
+  //   setOpenSort(false);
+  // }
 
   function handleChange(value: string) {
     setInput(value);
@@ -70,10 +76,7 @@ export default function Header({
         });
   }
 
-  function handleSortClick(s: string) {
-    s === sortBy ? setAsc(!asc) : setSortBy(s);
-    setOpenSort(false);
-  }
+  const sortProps = { sortBy, setSortBy, asc, setAsc }
 
   return (
     <div className="flex">
@@ -90,7 +93,8 @@ export default function Header({
         checked={isSearch}
         onChange={() => setIsSearch(!isSearch)}
       />
-      <button onClick={() => setOpenSort(!openSort)} ref={buttonRef}>
+      <Sort {...sortProps}/>
+      {/* <button onClick={() => setOpenSort(!openSort)} ref={buttonRef}>
         <span>{sortBy}</span>
       </button>
       {openSort ? (
@@ -103,7 +107,7 @@ export default function Header({
             ))}
           </ul>
         </div>
-      ) : null}
+      ) : null} */}
       <input type="checkbox" checked={asc} onChange={() => setAsc(!asc)} />
     </div>
   );

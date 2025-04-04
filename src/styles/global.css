@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
 input:focus {
   box-shadow: none;
 }
