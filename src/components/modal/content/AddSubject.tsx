@@ -7,7 +7,7 @@ import Header from "../Header";
 export default function AddSubject() {
   const [newName, setNewName] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const { subjects, addSubject } = useSubjectStore(state => state);
+  const { subjects, addSubject, setSorted } = useSubjectStore(state => state);
   const closeModal = useModalStore(state => state.closeModal);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -26,6 +26,7 @@ export default function AddSubject() {
       return;
     }
     addSubject(newName);
+    setSorted();
     closeModal();
   }
 

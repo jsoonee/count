@@ -10,7 +10,6 @@ export default function Header() {
 
   function handleExportClick() {
     if (!subjects.length) {
-      console.log("no export data");
       return;
     }
     exportData();

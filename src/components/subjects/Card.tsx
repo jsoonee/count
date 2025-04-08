@@ -4,13 +4,10 @@ import React, { useState } from "react";
 
 export default function Card() {
   const navigate = useNavigate();
-  const { subjects, setCurrentSubject, editSubject, removeSubject } =
-    useSubjectStore();
+  const { subjects, sorted, setCurrentSubject, setSorted, editSubject, removeSubject } =
+    useSubjectStore((state) => state);
   const [editId, setEditId] = useState<string>("");
   const [toEdit, setToEdit] = useState<string>("");
-  const [sortBy, setSortBy] = useState<string>("");
-  const [asc, setAsc] = useState<boolean>(false);
-  const [openSort, setOpenSort] = useState<boolean>(false);
 
   function handleClick(id: string) {
     setCurrentSubject(id);
@@ -28,49 +25,10 @@ export default function Card() {
     }
   }
 
-  function editName(subjectId: string, subjectName: string) {}
-
-  // function sortSubjects() {
-  //   const sorted = [...subjects];
-  //   sorted.sort((a,b) => {
-  //     if (sortBy === "name") {
-  //       return asc
-  //       ? a.name.localeCompare(b.name)
-  //       : b.name.localeCompare(a.name);
-  //     } else if (sortBy === "count") {
-  //       const sumA = a.items.reduce((acc,cur) => acc+cur.count,0);
-  //       const sumB = b.items.reduce((acc,cur) => acc+cur.count,0);
-  //       return asc ? sumA - sumB : sumB - sumA;
-  //     } else if (sortBy === "updated") {
-  //       return asc
-  //         ? a.updated.localeCompare(b.updated)
-  //         : b.updated.localeCompare(a.updated);
-  //     } else {
-  //       return asc
-  //         ? a.created.localeCompare(b.created)
-  //         : b.created.localeCompare(a.created);
-  //     }
-  //   });
-  //   return sorted;
-  // }
-
-  const sorted = [...subjects].sort((a, b) => {
-    if (sortBy === "name") {
-      return asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-    } else if (sortBy === "count") {
-      const sumA = a.items.reduce((acc, cur) => acc + cur.count, 0);
-      const sumB = b.items.reduce((acc, cur) => acc + cur.count, 0);
-      return asc ? sumA - sumB : sumB - sumA;
-    } else if (sortBy === "updated") {
-      return asc
-        ? a.updated.localeCompare(b.updated)
-        : b.updated.localeCompare(a.updated);
-    } else {
-      return asc
-        ? a.created.localeCompare(b.created)
-        : b.created.localeCompare(a.created);
-    }
-  });
+  function handleDeleteClick(subjectId: string) {
+    removeSubject(subjectId);
+    setSorted();
+  }
 
   function handleNameSubmit(
     e: React.FormEvent,
@@ -86,6 +44,7 @@ export default function Card() {
       const sub = subjects.find(({ id }) => id === subjectId);
       if (sub) {
         editSubject(subjectId, { ...sub, name: toEdit });
+        setSorted();
       }
     }
     setEditId("");
@@ -107,7 +66,7 @@ export default function Card() {
             <div onClick={() => handleClick(id)}>{name}</div>
           )}
           <button onClick={() => handleEditClick(id, name)}>edt</button>
-          <button onClick={() => removeSubject(id)}>del</button>
+          <button onClick={() => handleDeleteClick(id)}>del</button>
         </div>
       ))}
     </div>

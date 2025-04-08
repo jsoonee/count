@@ -17,7 +17,7 @@ export default function Sidebar() {
             <MdiCount className="size-12 mr-2" />
           </Link>
           <div className="flex items-center group">
-            <div className="cursor-pointer">{username}</div>
+            <div className="cursor-pointer mb-0.5">{username}</div>
             <TablerEdit
               className="ml-1 size-4 opacity-0 cursor-pointer group-hover:opacity-100"
               onClick={() => openModal(<EnterUsername />)}

@@ -1,4 +1,4 @@
-import useSubjectStore, { IItem } from "@/stores/subject";
+import useSubjectStore, { IItem, ISubject } from "@/stores/subject";
 import { useNavigate } from "@tanstack/react-router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Empty from "./Empty";
@@ -12,6 +12,7 @@ export default function Items() {
     subjects,
     currentSubject,
     setCurrentSubject,
+    setSorted,
     editItem,
     removeItem,
     countUp,
@@ -19,11 +20,9 @@ export default function Items() {
   } = useSubjectStore((state) => state);
 
   const sub = subjects.find(({ id }) => id === currentSubject);
+  const [sortedItems, setSortedItems] = useState<IItem[]>([]);
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [data, setData] = useState<IItem[]>(sub ? sub.items : []);
   const [input, setInput] = useState<string>("");
-  const [sortBy, setSortBy] = useState<string>("created");
-  const [asc, setAsc] = useState<boolean>(false);
   const [editId, setEditId] = useState<string>("");
   const [toEdit, setToEdit] = useState<string>("");
 
@@ -35,6 +34,32 @@ export default function Items() {
     }
   }, []);
 
+  useEffect(() => {
+    const items = sub?.items || [];
+    const { by, asc } = sub?.sort || { by: "created", asc: false };
+    const toSort = [...items];
+    if (by === "name") {
+      toSort.sort((a, b) =>
+        asc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+      );
+    } else if (by === "count") {
+      toSort.sort((a, b) =>
+        asc
+          ? a.count - b.count || a.created.localeCompare(b.created)
+          : b.count - a.count || b.created.localeCompare(a.created)
+      );
+    } else if (by === "updated") {
+      toSort.sort((a, b) =>
+        asc
+          ? a.updated.localeCompare(b.updated)
+          : b.updated.localeCompare(a.updated)
+      );
+    } else {
+      if (asc) toSort.reverse();
+    }
+    setSortedItems(toSort);
+  }, [sub]);
+
   function countChange(
     e: React.ChangeEvent<HTMLInputElement>,
     itemId: string,
@@ -44,8 +69,10 @@ export default function Items() {
     if (!value && !count) return;
     const num = Number(value);
     const item = sub?.items.find(({ id }) => id === itemId);
+    const now = new Date().toISOString();
     if (item && Number.isInteger(num) && num < 10 ** 5) {
-      editItem(itemId, { ...item, count: num ? +num : 0 });
+      editItem(itemId, { ...item, count: num ? +num : 0, updated: now });
+      setSorted();
     }
   }
 
@@ -53,6 +80,7 @@ export default function Items() {
     const item = sub?.items.find(({ id }) => id === itemId);
     if (item) {
       countDown(itemId);
+      setSorted();
     }
   }
 
@@ -60,6 +88,7 @@ export default function Items() {
     const item = sub?.items.find(({ id }) => id === itemId);
     if (item) {
       countUp(itemId);
+      setSorted();
     }
   }
 
@@ -87,6 +116,7 @@ export default function Items() {
       const item = sub?.items.find(({ id }) => id === itemId);
       if (item) {
         editItem(itemId, { ...item, name: toEdit });
+        setSorted();
       }
     }
     setEditId("");
@@ -100,56 +130,19 @@ export default function Items() {
   }
 
   const headerProps = {
-    data,
-    setData,
-    sortBy,
-    setSortBy,
-    asc,
-    setAsc,
     isSearch,
     setIsSearch,
     input,
     setInput,
   };
 
-  const search = isSearch ? input : "";
-
-  const sorted = useMemo(() => {
-    if (!sub) return [];
-    const items = [...sub.items];
-    const sorted = search
-      ? items.filter((item) =>
-          item.name.trim().toLowerCase().includes(input.trim())
-        )
-      : items;
-    return sorted.sort((a, b) => {
-      if (sortBy === "name") {
-        return asc
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      } else if (sortBy === "count") {
-        return asc
-          ? a.count - b.count || a.created.localeCompare(b.created)
-          : b.count - a.count || b.created.localeCompare(a.created);
-      } else if (sortBy === "updated") {
-        return asc
-          ? a.updated.localeCompare(b.updated)
-          : b.updated.localeCompare(a.updated);
-      } else {
-        return asc
-          ? a.created.localeCompare(b.created)
-          : b.created.localeCompare(a.created);
-      }
-    });
-  }, [sub, search, sortBy, asc]);
-
   const inputRefs = useMemo(() => {
     const refs = {};
-    sorted.forEach(({ id }) => {
+    sortedItems.forEach(({ id }) => {
       refs[id] = React.createRef();
     });
     return refs;
-  }, [sorted]);
+  }, [sortedItems]);
 
   useEffect(() => {
     if (editId && inputRefs[editId].current) {
@@ -160,8 +153,8 @@ export default function Items() {
   return (
     <div>
       <Header {...headerProps} />
-      {sorted.length ? (
-        sorted.map(({ id, name, count }) => (
+      {sortedItems.length ? (
+        sortedItems.map(({ id, name, count }) => (
           <div className="flex" key={id}>
             {id === editId ? (
               <form

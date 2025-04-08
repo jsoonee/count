@@ -1,23 +1,45 @@
-import React, { useEffect, useRef, useState } from "react";
+import useSubjectStore from "@/stores/subject";
+import { useEffect, useRef, useState } from "react";
 
-const sorts = ["name", "count", "created", "updated"];
+export default function Sort({ isSubject }: { isSubject: boolean }) {
+  const sorts = isSubject
+    ? ["name", "number", "count", "created", "updated"]
+    : ["name", "count", "created", "updated"];
+  const { subjects, sortBy, currentSubject, setSubjectSort, setItemSort } =
+    useSubjectStore((state) => state);
+  const itemSort = subjects.find(({ id }) => id === currentSubject)?.sort || {
+    by: "created",
+    asc: false,
+  };
 
-interface ISort {
-  subjectId?: string;
-  sortBy: string;
-  setSortBy: React.Dispatch<React.SetStateAction<string>>;
-  asc: boolean;
-  setAsc: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function Sort({subjectId, sortBy, setSortBy, asc, setAsc}: ISort) {
+  const sortInfo = isSubject ? sortBy : itemSort;
+  const [isAsc, setIsAsc] = useState<boolean>(sortInfo.asc);
   const [openSort, setOpenSort] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   function handleSortClick(s: string) {
-    s === sortBy ? setAsc(!asc) : setSortBy(s);
+    if (isSubject) {
+      const { by, asc } = sortBy;
+      setSubjectSort({ by: s, asc: s === by ? !asc : asc });
+    } else {
+      const { by, asc } = subjects.find(({ id }) => id === currentSubject)
+        ?.sort || {
+        by: "created",
+        asc: false,
+      };
+      setItemSort({ by: s, asc: s === by ? !asc : asc });
+    }
     setOpenSort(false);
+  }
+
+  function handleAscClick() {
+    if (isSubject) {
+      setSubjectSort({ ...sortBy, asc: !isAsc });
+    } else {
+      setItemSort({ ...itemSort, asc: !isAsc });
+    }
+    setIsAsc(!isAsc);
   }
 
   useEffect(() => {
@@ -40,7 +62,7 @@ export default function Sort({subjectId, sortBy, setSortBy, asc, setAsc}: ISort)
   return (
     <>
       <button onClick={() => setOpenSort(!openSort)} ref={buttonRef}>
-        <span>{sortBy}</span>
+        <span>{sortInfo.by}</span>
       </button>
       {openSort ? (
         <div ref={dropdownRef}>
@@ -53,6 +75,7 @@ export default function Sort({subjectId, sortBy, setSortBy, asc, setAsc}: ISort)
           </ul>
         </div>
       ) : null}
+      <button onClick={handleAscClick}>{sortInfo.asc ? "asc" : "desc"}</button>
     </>
   );
 }
