@@ -37,6 +37,7 @@ export default function Header({
       <button onClick={() => navigate({ to: "/" })}>Back</button>
       <input
         type="text"
+        value={input}
         onKeyDown={handleKeyDown}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleChange(e.target.value)

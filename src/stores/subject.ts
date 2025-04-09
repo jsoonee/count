@@ -7,9 +7,15 @@ interface ISortBy {
   asc: boolean;
 }
 
+interface ISubjectInfo {
+  name: string;
+  emoji?: string;
+}
+
 export interface ISubject {
   id: string;
   name: string;
+  emoji: string;
   items: IItem[];
   sort: ISortBy;
   description: string;
@@ -37,7 +43,7 @@ interface SubjectStore {
   setSubjects: (subjects: ISubject[]) => void;
   setSubjectSort: (s: ISortBy) => void;
   setSorted: () => void;
-  addSubject: (subjectName: string) => void;
+  addSubject: (subjectInfo: ISubjectInfo) => void;
   editSubject: (subjectId: string, subject: ISubject) => void;
   removeSubject: (subjectId: string) => void;
   setItemSort: (s: ISortBy) => void;
@@ -114,11 +120,12 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
         sorted: sortSubjects(subjects, sortBy),
       }));
     },
-    addSubject: (subjectName) => {
+    addSubject: ({ name, emoji }) => {
       const nowStr = now();
       const newSubject = {
         id: v4(),
-        name: subjectName,
+        name: name,
+        emoji: emoji || "",
         items: [],
         sort: { by: "created", asc: false },
         description: "",
@@ -181,7 +188,9 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
           sub.id === currentSubject
             ? {
                 ...sub,
-                items: sub.items.map((it) => (it.id === itemId ? {...item} : it)),
+                items: sub.items.map((it) =>
+                  it.id === itemId ? { ...item } : it
+                ),
                 updated: item.updated,
               }
             : sub

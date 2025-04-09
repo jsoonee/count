@@ -31,8 +31,11 @@ export default function Items() {
       navigate({ to: "/" });
     } else {
       setCurrentSubject(subId);
+      setInput("");
+      setEditId("");
+      setToEdit("");
     }
-  }, []);
+  }, [subId]);
 
   useEffect(() => {
     const items = sub?.items || [];
@@ -148,7 +151,7 @@ export default function Items() {
     if (editId && inputRefs[editId].current) {
       inputRefs[editId].current.focus();
     }
-  }, [editId, inputRefs]);
+  }, [editId]);
 
   return (
     <div>

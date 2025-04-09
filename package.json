@@ -11,10 +11,11 @@
   "keywords": [],
   "author": "jsoonee",
   "license": "ISC",
-  "packageManager": "pnpm@10.6.4",
+  "packageManager": "pnpm@10.8.0",
   "dependencies": {
     "@tailwindcss/vite": "^4.0.14",
     "@tanstack/react-router": "^1.114.23",
+    "emoji-picker-react": "^4.12.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
