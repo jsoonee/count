@@ -47,6 +47,11 @@ export default function EditSubject() {
     closeModal();
   }
 
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setNewName(e.target.value);
+    setError("");
+  }
+
   function handleEmojiClick(emojiData: EmojiClickData) {
     setEmoji(emojiData);
     setEmojiOpen(false);
@@ -55,8 +60,20 @@ export default function EditSubject() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="px-6 py-2">
-        <div className="text-sm font-medium mb-2">Emoji</div>
-        <div className="flex relative">
+        <div className="text-sm font-medium">Name</div>
+        <input
+          className={`w-full h-10 border-2 border-[#ddd] ${
+            error ? "border-[red] focus:border-[red] dark:border-[red] dark:focus:border-[red]" : "dark:border-[#333] dark:focus:border-[#ddd]"
+          } focus:border-[#333]  rounded-sm px-4 my-2`}
+          value={newName}
+          placeholder="Enter subject name"
+          onChange={(e) =>
+            handleInputChange(e)
+          }
+        />
+        <div className="text-[red] text-sm h-6 mb-2">{error || ""}</div>
+        <div className="text-sm font-medium my-2">Emoji</div>
+        <div className="flex relative mb-6">
           <button
             type="button"
             className="flex items-center border border-[#bdf] rounded-sm bg-[#def] hover:bg-[#bdf] h-10 group mr-2"
@@ -88,27 +105,18 @@ export default function EditSubject() {
             </div>
           ) : null}
         </div>
-        <div className="text-sm font-medium mt-4">Name</div>
-        <input
-          className="w-full h-10 border border-[#ddd] rounded-sm px-4 my-2"
-          value={newName}
-          placeholder="Enter subject name"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setNewName(e.target.value)
-          }
-        />
       </div>
-      <div className="flex justify-end p-6 space-x-2">
+      <div className="flex justify-end p-6">
         <button
           type="button"
-          className="h-10 border rounded-sm px-4 text-[#222] border-[#eee] hover:bg-[#f4f4f4]"
+          className="h-10 mr-4 border rounded-sm px-4 text-[#222] dark:text-[#eee] border-[#eee] dark:border-[#333] hover:bg-[#f4f4f4] dark:hover:bg-[#222]"
           onClick={() => closeModal()}
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="h-10 border rounded-sm px-4 text-white bg-[#26e] hover:bg-[#26e]/90"
+          className="h-10 rounded-sm px-4 text-white bg-[#26e] hover:bg-[#26e]/90"
         >
           Add
         </button>

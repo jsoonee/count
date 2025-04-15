@@ -1,40 +1,27 @@
-import { MdiCount, TablerEdit, TablerHome } from "@/lib/Icons";
-import useModalStore from "@/stores/modal";
-import { Link } from "@tanstack/react-router";
-import EnterUsername from "../modal/content/EnterUsername";
-import useConfigStore from "@/stores/config";
+import TopMenu from "./TopMenu";
 import Subjects from "./Subjects";
+import Logo from "./Logo";
+import { TablerSettings } from "@/lib/Icons";
 
 export default function Sidebar() {
-  const username = useConfigStore((state) => state.username);
-  const openModal = useModalStore((state) => state.openModal);
-
   return (
-    <aside className="w-xs flex flex-col flex-shrink-0 px-4 rounded-r-2xl bg-neutral-50">
-      <div className="w-full">
-        <div className="flex items-center mx-4 mt-4">
-          <Link to="/">
-            <MdiCount className="size-12 mr-2" />
-          </Link>
-          <div className="flex items-center group">
-            <div className="cursor-pointer mb-1">{username}</div>
-            <TablerEdit
-              className="ml-1 size-4 opacity-0 cursor-pointer group-hover:opacity-100"
-              onClick={() => openModal(<EnterUsername />)}
-            />
-          </div>
+    <aside className="flex shrink-0 w-xs px-4 rounded-r-2xl bg-neutral-50 dark:bg-neutral-800">
+      <div className="w-full flex flex-col justify-between">
+        <div className="w-full">
+          <Logo />
+          <hr className="border-[#ddd] my-4" />
+          <TopMenu />
+          <Subjects />
+        </div>
+        <div>
+          <button className="flex items-center w-full hover:bg-black/10 dark:hover:bg-white/10 active:bg-blue-400 p-2 my-4 rounded-lg">
+            <TablerSettings />
+            <div className="w-auto ml-2">
+              <div className="justify-start">Settings</div>
+            </div>
+          </button>
         </div>
       </div>
-      <hr className="border-[#ddd] my-4" />
-      <Link to="/">
-        <button className="flex items-center w-full hover:bg-blue-300 active:bg-blue-400 p-2 rounded-lg">
-          <TablerHome />
-          <div className="w-auto ml-2">
-            <div className="justify-start">Home</div>
-          </div>
-        </button>
-      </Link>
-      <Subjects />
     </aside>
   );
 }

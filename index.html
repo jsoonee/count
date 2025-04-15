@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <link rel="icon" href="/favicon.ico" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Count</title>
-  <link rel="stylesheet" href="src/styles/global.css" />
-</head>
-<body>
-  <div id="root"></div>
-  <script type="module" src="src/main.tsx"></script>
-</body>
+  <head>
+    <link rel="icon" href="/favicon.ico" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count</title>
+    <link rel="stylesheet" href="src/global.css" />
+    <script>
+      function updateDarkMode(e) {
+        try {
+          const config = JSON.parse(localStorage.getItem("config") || '{}');
+          const theme = config.theme;
+          if (theme === "dark" || theme ==="light") return;
+        } catch (err) {
+          console.error(err);
+        }
+        document.documentElement.classList.toggle("dark", e.matches);
+      }
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      updateDarkMode(mediaQuery);
+      mediaQuery.addEventListener("change", updateDarkMode);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="src/main.tsx"></script>
+  </body>
 </html>
