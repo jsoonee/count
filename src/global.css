@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: sans-serif, ui-sans-serif, system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+}
+
 * {
   box-sizing: border-box;
   transition: background-color 0.2s ease, opacity 0.2s ease;
+  font-family: var(--font-display);
 }
 
 .dark {

@@ -15,7 +15,6 @@ function RootComponent() {
       <div id="app" className="w-full h-screen flex select-none">
         <Sidebar />
         <div className="flex flex-col w-full">
-          <Header />
           <Outlet />
         </div>
         <Modal />

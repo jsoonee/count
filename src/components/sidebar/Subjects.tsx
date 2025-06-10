@@ -19,7 +19,7 @@ export default function Subjects() {
       {sorted.length ? (
         <>
           <div className="font-medium text-sm mt-8 ml-2">SUBJECTS</div>
-          <ul>
+          <ul className="h-full">
             {sorted.map(({ id, name, emoji, items }) => {
               const sum = items.reduce((acc, cur) => acc + cur.count, 0);
               return (

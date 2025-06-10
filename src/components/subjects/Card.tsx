@@ -4,8 +4,14 @@ import React, { useState } from "react";
 
 export default function Card() {
   const navigate = useNavigate();
-  const { subjects, sorted, setCurrentSubject, setSorted, editSubject, removeSubject } =
-    useSubjectStore((state) => state);
+  const {
+    subjects,
+    sorted,
+    setCurrentSubject,
+    setSorted,
+    editSubject,
+    removeSubject,
+  } = useSubjectStore((state) => state);
   const [editId, setEditId] = useState<string>("");
   const [toEdit, setToEdit] = useState<string>("");
 

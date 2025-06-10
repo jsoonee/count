@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useModalStore from "@/stores/modal";
 import useSubjectStore from "@/stores/subject";
 import { TablerCircle } from "@/lib/Icons";
-import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
+import EmojiPicker, { EmojiClickData, EmojiStyle } from "emoji-picker-react";
 
 export default function EditSubject() {
   const [newName, setNewName] = useState<string>("");
@@ -62,9 +62,8 @@ export default function EditSubject() {
       <div className="px-6 py-2">
         <div className="text-sm font-medium">Name</div>
         <input
-          className={`w-full h-10 border-2 border-[#ddd] ${
-            error ? "border-[red] focus:border-[red] dark:border-[red] dark:focus:border-[red]" : "dark:border-[#333] dark:focus:border-[#ddd]"
-          } focus:border-[#333]  rounded-sm px-4 my-2`}
+          className={`w-full h-10 border-2 border-[#ddd] ${error ? "border-[red] focus:border-[red] dark:border-[red] dark:focus:border-[red]" : "dark:border-[#333] dark:focus:border-[#ddd]"
+            } focus:border-[#333]  rounded-sm px-4 my-2`}
           value={newName}
           placeholder="Enter subject name"
           onChange={(e) =>
@@ -100,7 +99,7 @@ export default function EditSubject() {
             <div className="absolute left-12 z-2 -bottom-50" ref={emojiRef}>
               <EmojiPicker
                 onEmojiClick={handleEmojiClick}
-                emojiStyle="native"
+                emojiStyle={EmojiStyle.NATIVE}
               />
             </div>
           ) : null}

@@ -173,10 +173,10 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
         subjects: subjects.map((sub) =>
           sub.id === currentSubject
             ? {
-                ...sub,
-                items: [newItem, ...sub.items],
-                updated: nowStr,
-              }
+              ...sub,
+              items: [newItem, ...sub.items],
+              updated: nowStr,
+            }
             : sub
         ),
       }));
@@ -187,25 +187,25 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
         subjects: subjects.map((sub) =>
           sub.id === currentSubject
             ? {
-                ...sub,
-                items: sub.items.map((it) =>
-                  it.id === itemId ? { ...item } : it
-                ),
-                updated: item.updated,
-              }
+              ...sub,
+              items: sub.items.map((it) =>
+                it.id === itemId ? { ...item } : it
+              ),
+              updated: item.updated,
+            }
             : sub
         ),
       }));
       setStorage();
     },
     removeItem: (itemId) => {
-      set(({ subjects, currentSubject }) => ({
-        subjects: subjects.map((sub) =>
-          sub.id === currentSubject
-            ? { ...sub, items: sub.items.filter((it) => it.id !== itemId) }
-            : sub
-        ),
-      }));
+      set(({ subjects, currentSubject, sortBy }) => {
+        const newArr = subjects.map((sub) => sub.id === currentSubject ? { ...sub, items: sub.items.filter((it) => it.id !== itemId) } : sub);
+        return ({
+          subjects: newArr,
+          sorted: sortSubjects(newArr, sortBy)
+        });
+      });
       setStorage();
     },
     countUp: (itemId) => {
@@ -214,18 +214,18 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
         subjects: subjects.map((sub) =>
           sub.id === currentSubject
             ? {
-                ...sub,
-                items: sub.items.map((it) =>
-                  it.id === itemId
-                    ? {
-                        ...it,
-                        count: it.count + 1 < 10 ** 5 ? it.count + 1 : it.count,
-                        updated: nowStr,
-                      }
-                    : it
-                ),
-                updated: nowStr,
-              }
+              ...sub,
+              items: sub.items.map((it) =>
+                it.id === itemId
+                  ? {
+                    ...it,
+                    count: it.count + 1 < 10 ** 5 ? it.count + 1 : it.count,
+                    updated: nowStr,
+                  }
+                  : it
+              ),
+              updated: nowStr,
+            }
             : sub
         ),
       }));
@@ -237,18 +237,18 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
         subjects: subjects.map((sub) =>
           sub.id === currentSubject
             ? {
-                ...sub,
-                items: sub.items.map((it) =>
-                  it.id === itemId
-                    ? {
-                        ...it,
-                        count: it.count ? it.count - 1 : 0,
-                        updated: nowStr,
-                      }
-                    : it
-                ),
-                updated: nowStr,
-              }
+              ...sub,
+              items: sub.items.map((it) =>
+                it.id === itemId
+                  ? {
+                    ...it,
+                    count: it.count ? it.count - 1 : 0,
+                    updated: nowStr,
+                  }
+                  : it
+              ),
+              updated: nowStr,
+            }
             : sub
         ),
       }));
