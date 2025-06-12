@@ -4,7 +4,11 @@ import { useNavigate } from "@tanstack/react-router";
 import AddSubject from "../modal/content/AddSubject";
 import useModalStore from "@/stores/modal";
 
-export default function Subjects() {
+export default function Subjects({
+  closeSidebar,
+}: {
+  closeSidebar: () => void;
+}) {
   const { sorted, setCurrentSubject } = useSubjectStore((state) => state);
   const openModal = useModalStore((state) => state.openModal);
   const navigate = useNavigate();
@@ -12,6 +16,7 @@ export default function Subjects() {
   function handleSubjectClick(subjectId: string) {
     setCurrentSubject(subjectId);
     navigate({ to: "/sub/$subId", params: { subId: subjectId } });
+    closeSidebar();
   }
 
   return (
@@ -19,7 +24,7 @@ export default function Subjects() {
       {sorted.length ? (
         <>
           <div className="font-medium text-sm mt-8 ml-2">SUBJECTS</div>
-          <ul className="h-full">
+          <ul className="">
             {sorted.map(({ id, name, emoji, items }) => {
               const sum = items.reduce((acc, cur) => acc + cur.count, 0);
               return (

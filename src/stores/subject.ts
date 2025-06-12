@@ -43,7 +43,7 @@ interface SubjectStore {
   setSubjects: (subjects: ISubject[]) => void;
   setSubjectSort: (s: ISortBy) => void;
   setSorted: () => void;
-  addSubject: (subjectInfo: ISubjectInfo) => void;
+  addSubject: (subjectInfo: ISubjectInfo) => string;
   editSubject: (subjectId: string, subject: ISubject) => void;
   removeSubject: (subjectId: string) => void;
   setItemSort: (s: ISortBy) => void;
@@ -122,8 +122,9 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
     },
     addSubject: ({ name, emoji }) => {
       const nowStr = now();
+      const subjectId = v4();
       const newSubject = {
-        id: v4(),
+        id: subjectId,
         name: name,
         emoji: emoji || "",
         items: [],
@@ -137,6 +138,7 @@ const useSubjectStore = create<SubjectStore>((set, get) => {
         subjects: [newSubject, ...subjects],
       }));
       setStorage();
+      return subjectId;
     },
     editSubject: (subjectId, subject) => {
       set(({ subjects }) => ({

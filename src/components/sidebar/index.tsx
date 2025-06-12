@@ -17,25 +17,42 @@ export default function Sidebar() {
   useEffect(() => {
     setIsOpenSidebar(!isMobile);
   }, [isMobile]);
+
+  function closeSidebar() {
+    if (isMobile) setIsOpenSidebar(false);
+  }
+
   return (
     <>
-      <div className={`absolute top-4 z-1 ${isMobile && isOpenSidebar ? "right-2" : isOpenSidebar ? "left-70" : "left-2"}`} onClick={() => setIsOpenSidebar(!isOpenSidebar)}>
+      <button
+        className={`absolute top-4 z-1 ${
+          isMobile && isOpenSidebar
+            ? "right-2"
+            : isOpenSidebar
+            ? "left-70"
+            : "left-2"
+        }`}
+        onClick={() => setIsOpenSidebar(!isOpenSidebar)}
+      >
         {isOpenSidebar ? (
           <TablerSidebarLeftCollapse className="size-8" />
         ) : (
           <TablerSidebarLeftExpand className="size-8" />
         )}
-        
-      </div>
+      </button>
       {isOpenSidebar ? (
         <>
-          <aside className={`flex shrink-0 px-4 rounded-r-2xl bg-neutral-50 dark:bg-neutral-800 ${isMobile ? "absolute w-full h-screen" : "w-xs"}`}>
+          <aside
+            className={`flex shrink-0 px-4 bg-neutral-50 dark:bg-neutral-800 ${
+              isMobile ? "absolute w-full h-screen" : "w-xs"
+            }`}
+          >
             <div className="w-full flex flex-col justify-between">
               <div className="w-full">
-                <Logo />
+                <Logo closeSidebar={closeSidebar} />
                 <hr className="border-[#ddd] my-4" />
-                <TopMenu />
-                <Subjects />
+                <TopMenu closeSidebar={closeSidebar} />
+                <Subjects closeSidebar={closeSidebar} />
               </div>
               <div>
                 <button className="flex items-center w-full hover:bg-black/10 dark:hover:bg-white/10 p-2 my-4 rounded-lg">
