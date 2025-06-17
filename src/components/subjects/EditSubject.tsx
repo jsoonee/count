@@ -2,8 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import useModalStore from "@/stores/modal";
 import useSubjectStore from "@/stores/subject";
 import { TablerCircle } from "@/lib/Icons";
-import EmojiPicker, { EmojiClickData, EmojiStyle, Theme } from "emoji-picker-react";
+import EmojiPicker, {
+  EmojiClickData,
+  EmojiStyle,
+  Theme,
+} from "emoji-picker-react";
 import { useNavigate } from "@tanstack/react-router";
+import useConfigStore from "@/stores/config";
 
 export default function EditSubject() {
   const navigate = useNavigate();
@@ -11,13 +16,15 @@ export default function EditSubject() {
   const [error, setError] = useState<string>("");
   const [emoji, setEmoji] = useState<EmojiClickData | null>(null);
   const { subjects, addSubject, setSorted } = useSubjectStore((state) => state);
-  const { isEmojiOpen, setEmojiOpen, closeModal } = useModalStore(
+  const { isEmojiOpen, setEmojiOpen, closeModal, setSubmitted } = useModalStore(
     (state) => state
   );
+  const color = useConfigStore((state) => state.color);
   const inputRef = useRef<HTMLInputElement>(null);
   const emojiRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  console.log(color);
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -48,10 +55,14 @@ export default function EditSubject() {
       setError("The name is already exists.");
       return;
     }
-    const subjectId = addSubject({ name: newName, emoji: emoji ? emoji.emoji : "" });
+    const subjectId = addSubject({
+      name: newName,
+      emoji: emoji ? emoji.emoji : "",
+    });
     setSorted();
-    navigate({to: `/sub/${subjectId}`})
+    navigate({ to: `/sub/${subjectId}` });
     closeModal();
+    setSubmitted(true);
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -84,7 +95,8 @@ export default function EditSubject() {
         <div className="flex relative mb-6">
           <button
             type="button"
-            className="flex items-center border border-[#bdf] dark:border-[#237] rounded-sm bg-[#def] dark:bg-[#124] hover:bg-[#bdf] dark:hover:bg-[#237] h-10 group mr-2"
+            // className="flex items-center border border-[#bdf] dark:border-[#237] rounded-sm bg-[#def] dark:bg-[#124] hover:bg-[#bdf] dark:hover:bg-[#237] h-10 group mr-2"
+            className={`flex items-center border border-[--${color}-200] dark:border-[--${color}-700] rounded-sm bg-${color}-200 dark:bg-${color}-800 hover:bg-${color}-200 dark:hover:bg-[var(--${color}-700)] h-10 group mr-2`}
             onClick={() => setEmojiOpen(!isEmojiOpen)}
             ref={buttonRef}
           >
@@ -105,19 +117,19 @@ export default function EditSubject() {
                 <TablerCircle />
               )}
             </div>
-            <div className="px-4 text-[#23a] dark:text-[#acf]">
+            <div className={`px-4 text-[--${color}-700] dark:text-[--${color}-200]`}>
               Select emoji
             </div>
           </button>
-          {emoji && (
-            <button
-              type="button"
-              className="h-10 border border-[#bdf] dark:border-[#23a] text-[#23a] dark:text-[#bdf] rounded-sm px-4 hover:bg-[#f3f9ff] dark:hover:bg-[#124]"
-              onClick={() => setEmoji(null)}
-            >
-              Remove
-            </button>
-          )}
+          <button
+            type="button"
+            className={`h-10 border border-${color}-200 dark:border-${color}-700 text-${color}-700 dark:text-${color}-200 rounded-sm px-4 hover:bg-[#f3f9ff] dark:hover:bg-${color}-800 ${
+              emoji ? "visible" : "invisible"
+            }`}
+            onClick={() => setEmoji(null)}
+          >
+            Remove
+          </button>
           {isEmojiOpen ? (
             <div className="absolute left-12 z-2 -bottom-50" ref={emojiRef}>
               <EmojiPicker
@@ -139,7 +151,7 @@ export default function EditSubject() {
         </button>
         <button
           type="submit"
-          className="h-10 rounded-sm px-4 text-white bg-[#26e] hover:bg-[#26e]/90"
+          className={`h-10 rounded-sm px-4 text-white bg-${color}-500 hover:bg-${color}-500/90`}
         >
           Add
         </button>

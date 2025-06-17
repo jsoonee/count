@@ -4,8 +4,10 @@ import { create } from "zustand";
 interface ConfigStore {
   username: string;
   theme: string;
+  color: string;
   setUsername: (newUsername: string) => void;
   setTheme: (theme: string) => void;
+  setColor: (color: string) => void;
 }
 
 const useConfigStore = create<ConfigStore>((set, get) => {
@@ -13,13 +15,15 @@ const useConfigStore = create<ConfigStore>((set, get) => {
   const initialState = {
     username: storage?.username || "username",
     theme: storage?.theme || "os",
+    color: storage?.color || "teal"
   };
 
   function setStorage() {
-    const { username, theme } = get();
+    const { username, theme, color } = get();
     const config = {
       username: username,
       theme: theme,
+      color: color
     };
     setItem("config", config);
   }
@@ -34,6 +38,9 @@ const useConfigStore = create<ConfigStore>((set, get) => {
       set({ theme: theme });
       setStorage();
     },
+    setColor: (color) => {
+      set({ color: color })
+    }
   };
 });
 

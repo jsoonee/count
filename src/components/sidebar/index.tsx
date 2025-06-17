@@ -8,15 +8,22 @@ import {
 } from "@/lib/Icons";
 import useIsMobile from "@/hooks/useIsMobile";
 import { useEffect, useState } from "react";
+import useModalStore from "@/stores/modal";
 
 export default function Sidebar() {
   const isMobile = useIsMobile();
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(
     isMobile ? false : true
   );
+  const { submitted, setSubmitted } = useModalStore((state) => state);
   useEffect(() => {
     setIsOpenSidebar(!isMobile);
   }, [isMobile]);
+
+  useEffect(() => {
+    setIsOpenSidebar(false);
+    setSubmitted(false);
+  }, [submitted]);
 
   function closeSidebar() {
     if (isMobile) setIsOpenSidebar(false);
