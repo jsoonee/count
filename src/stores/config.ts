@@ -15,7 +15,7 @@ const useConfigStore = create<ConfigStore>((set, get) => {
   const initialState = {
     username: storage?.username || "username",
     theme: storage?.theme || "os",
-    color: storage?.color || "teal"
+    color: storage?.color || "pink"
   };
 
   function setStorage() {

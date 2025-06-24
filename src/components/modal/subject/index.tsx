@@ -9,25 +9,40 @@ import EmojiPicker, {
 } from "emoji-picker-react";
 import { useNavigate } from "@tanstack/react-router";
 import useConfigStore from "@/stores/config";
+import {
+  buttonOutlineColors,
+  buttonSolidColors,
+  buttonSurfaceColors,
+  buttonSurfaceTextColors,
+  inputBorderColors,
+} from "@/styles/colors";
 
-export default function EditSubject() {
-  const navigate = useNavigate();
-  const [newName, setNewName] = useState<string>("");
+export default function Subject({ subjectEditId }: { subjectEditId?: string }) {
+  const { subjects, addSubject, editSubject, setSorted } = useSubjectStore(
+    (state) => state
+  );
+  const currentSub = subjects.find((sub) => sub.id === subjectEditId) || null;
+  const [newName, setNewName] = useState<string>(currentSub?.name || "");
   const [error, setError] = useState<string>("");
-  const [emoji, setEmoji] = useState<EmojiClickData | null>(null);
-  const { subjects, addSubject, setSorted } = useSubjectStore((state) => state);
+  // const [emoji, setEmoji] = useState<EmojiClickData | null>(null);
+  const [emoji, setEmoji] = useState<string>(currentSub?.emoji || "");
   const { isEmojiOpen, setEmojiOpen, closeModal, setSubmitted } = useModalStore(
     (state) => state
   );
-  const color = useConfigStore((state) => state.color);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const emojiRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  console.log(color);
+  const navigate = useNavigate();
+
+  const color = useConfigStore((state) => state.color);
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
@@ -51,18 +66,34 @@ export default function EditSubject() {
       setError("Enter a subject name.");
       return;
     }
-    if (subjects.some(({ name }) => newName === name)) {
-      setError("The name is already exists.");
-      return;
+    if (subjectEditId && currentSub) {
+      if (
+        subjects.some(
+          ({ id, name }) => newName === name && subjectEditId !== id
+        )
+      ) {
+        setError("The name is already exists.");
+        return;
+      }
+      editSubject(subjectEditId, {
+        ...currentSub,
+        name: newName,
+        emoji: emoji,
+      });
+    } else {
+      if (subjects.some(({ name }) => newName === name)) {
+        setError("The name is already exists.");
+        return;
+      }
+      const subjectId = addSubject({
+        name: newName,
+        emoji: emoji,
+      });
+      navigate({ to: `/sub/${subjectId}` });
+      setSubmitted(true);
     }
-    const subjectId = addSubject({
-      name: newName,
-      emoji: emoji ? emoji.emoji : "",
-    });
     setSorted();
-    navigate({ to: `/sub/${subjectId}` });
     closeModal();
-    setSubmitted(true);
   }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -71,20 +102,22 @@ export default function EditSubject() {
   }
 
   function handleEmojiClick(emojiData: EmojiClickData) {
-    setEmoji(emojiData);
+    setEmoji(emojiData.emoji);
     setEmojiOpen(false);
   }
+
+  console.log(emoji);
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="px-6 py-2">
         <div className="text-sm font-medium">Name</div>
         <input
-          className={`w-full h-10 border-2 border-[#ddd] ${
+          className={`w-full h-10 border-2 ${
             error
               ? "border-[red] focus:border-[red] dark:border-[red] dark:focus:border-[red]"
-              : "dark:border-[#333] dark:focus:border-[#ddd]"
-          } focus:border-[#333]  rounded-sm px-4 my-2`}
+              : `border-[#ddd] dark:border-[#333] ${inputBorderColors[color]}`
+          } rounded-sm px-4 my-2`}
           value={newName}
           placeholder="Enter subject name"
           onChange={(e) => handleInputChange(e)}
@@ -96,7 +129,8 @@ export default function EditSubject() {
           <button
             type="button"
             // className="flex items-center border border-[#bdf] dark:border-[#237] rounded-sm bg-[#def] dark:bg-[#124] hover:bg-[#bdf] dark:hover:bg-[#237] h-10 group mr-2"
-            className={`flex items-center border border-[--${color}-200] dark:border-[--${color}-700] rounded-sm bg-${color}-200 dark:bg-${color}-800 hover:bg-${color}-200 dark:hover:bg-[var(--${color}-700)] h-10 group mr-2`}
+            // className={`flex items-center border border-[--${color}-200] dark:border-[--${color}-700] rounded-sm bg-${color}-200 dark:bg-${color}-800 hover:bg-${color}-200 dark:hover:bg-[var(--${color}-700)] h-10 group mr-2`}
+            className={`flex items-center border h-10 rounded-sm group mr-2 ${buttonSurfaceColors[color]}`}
             onClick={() => setEmojiOpen(!isEmojiOpen)}
             ref={buttonRef}
           >
@@ -108,25 +142,25 @@ export default function EditSubject() {
                 border border-[#ddd] dark:border-[#333] rounded-l-sm 
               text-[#777] 
                 h-[40px] 
-              group-hover:bg-[#ddd] dark:group-hover:bg-[#333]
+              group-hover:bg-[#eee] group-active:bg-[#eee] dark:group-hover:bg-[#333]
               "
             >
               {emoji ? (
-                <div className="text-xl">{emoji.emoji}</div>
+                <div className="text-xl">{emoji}</div>
               ) : (
                 <TablerCircle />
               )}
             </div>
-            <div className={`px-4 text-[--${color}-700] dark:text-[--${color}-200]`}>
+            <div className={`px-4 ${buttonSurfaceTextColors[color]}`}>
               Select emoji
             </div>
           </button>
           <button
             type="button"
-            className={`h-10 border border-${color}-200 dark:border-${color}-700 text-${color}-700 dark:text-${color}-200 rounded-sm px-4 hover:bg-[#f3f9ff] dark:hover:bg-${color}-800 ${
+            className={`h-10 border rounded-sm px-4 ${
               emoji ? "visible" : "invisible"
-            }`}
-            onClick={() => setEmoji(null)}
+            } ${buttonOutlineColors[color]}`}
+            onClick={() => setEmoji("")}
           >
             Remove
           </button>
@@ -151,9 +185,9 @@ export default function EditSubject() {
         </button>
         <button
           type="submit"
-          className={`h-10 rounded-sm px-4 text-white bg-${color}-500 hover:bg-${color}-500/90`}
+          className={`h-10 rounded-sm px-4 ${buttonSolidColors[color]}`}
         >
-          Add
+          {subjectEditId ? "Edit" : "Add"}
         </button>
       </div>
     </form>

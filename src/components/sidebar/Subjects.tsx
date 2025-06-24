@@ -1,8 +1,12 @@
 import { TablerCircle, TablerPlus } from "@/lib/Icons";
 import useSubjectStore from "@/stores/subject";
 import { useNavigate } from "@tanstack/react-router";
-import AddSubject from "../modal/content/AddSubject";
 import useModalStore from "@/stores/modal";
+import { buttonSolidColors } from "@/styles/colors";
+import useConfigStore from "@/stores/config";
+import { MenuButtonSmall } from "@/layouts/MenuButton";
+import Header from "../modal/Header";
+import Subject from "../modal/subject";
 
 export default function Subjects({
   closeSidebar,
@@ -10,6 +14,7 @@ export default function Subjects({
   closeSidebar: () => void;
 }) {
   const { sorted, setCurrentSubject } = useSubjectStore((state) => state);
+  const color = useConfigStore((state) => state.color);
   const openModal = useModalStore((state) => state.openModal);
   const navigate = useNavigate();
 
@@ -29,8 +34,12 @@ export default function Subjects({
               const sum = items.reduce((acc, cur) => acc + cur.count, 0);
               return (
                 <li key={id}>
-                  <button
+                  {/* <button
                     className="flex justify-between items-center w-full hover:bg-black/10 dark:hover:bg-white/10 py-1 rounded-sm"
+                    onClick={() => handleSubjectClick(id)}
+                  > */}
+                  <MenuButtonSmall
+                    className="justify-between pr-2"
                     onClick={() => handleSubjectClick(id)}
                   >
                     <div className="flex items-center">
@@ -48,7 +57,8 @@ export default function Subjects({
                     <div>
                       {sum} / {items.length}
                     </div>
-                  </button>
+                  </MenuButtonSmall>
+                  {/* </button> */}
                 </li>
               );
             })}
@@ -56,8 +66,15 @@ export default function Subjects({
         </>
       ) : null}
       <button
-        className="flex justify-center items-center w-full p-2 my-4 text-white bg-black dark:bg-white dark:text-black rounded-lg"
-        onClick={() => openModal(<AddSubject />)}
+        className={`flex justify-center items-center w-full p-2 my-4 rounded-lg ${buttonSolidColors[color]}`}
+        onClick={() =>
+          openModal(
+            <>
+              <Header title="Add subject"></Header>
+              <Subject />
+            </>
+          )
+        }
       >
         <TablerPlus />
         <div className="ml-2">Add new subject</div>

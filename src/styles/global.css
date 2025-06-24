@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+@theme static {
+  --font-display: sans-serif, ui-sans-serif, system-ui, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@theme {
+  --color-pink-50: #fde6f4;
+  --color-pink-100: #fbcce8;
+  --color-pink-200: #f799d1;
+  --color-pink-300: #f466ba;
+  --color-pink-400: #f033a3;
+  --color-pink-500: #ec008c;
+  --color-pink-600: #bd0070;
+  --color-pink-700: #8e0054;
+  --color-pink-800: #5e0038;
+  --color-pink-900: #2f001c;
+  --color-pink-950: #18000e;
+
+  --color-yellow-50: #fffae6;
+  --color-yellow-100: #fff5cc;
+  --color-yellow-200: #ffeb99;
+  --color-yellow-300: #ffe066;
+  --color-yellow-400: #ffd633;
+  --color-yellow-500: #ffcc00;
+  --color-yellow-600: #cca300;
+  --color-yellow-700: #997a00;
+  --color-yellow-800: #665200;
+  --color-yellow-900: #332900;
+  --color-yellow-950: #191400;
+
+  --color-green-50: #e6f6ee;
+  --color-green-100: #cceddc;
+  --color-green-200: #99dbb9;
+  --color-green-300: #66ca97;
+  --color-green-400: #33b874;
+  --color-green-500: #00a651;
+  --color-green-600: #008541;
+  --color-green-700: #006431;
+  --color-green-800: #004220;
+  --color-green-900: #002110;
+  --color-green-950: #001108;
+
+  --color-orange-50: #fef1e9;
+  --color-orange-100: #fde2d2;
+  --color-orange-200: #fbc5a5;
+  --color-orange-300: #f8a979;
+  --color-orange-400: #f68c4c;
+  --color-orange-500: #f46f1f;
+  --color-orange-600: #c35919;
+  --color-orange-700: #924313;
+  --color-orange-800: #622c0c;
+  --color-orange-900: #311606;
+  --color-orange-950: #180b03;
+
+  --color-rose-50: #fff5f8;
+  --color-rose-100: #ffeaf0;
+  --color-rose-200: #ffd6e1;
+  --color-rose-300: #ffc1d2;
+  --color-rose-400: #ffadc3;
+  --color-rose-500: #ff98b4;
+  --color-rose-600: #cc7a90;
+  --color-rose-700: #995b6c;
+  --color-rose-800: #663d48;
+  --color-rose-900: #331e24;
+  --color-rose-950: #190f12;
+
+  --color-crimson-50: #fce8ec;
+  --color-crimson-100: #fad1d8;
+  --color-crimson-200: #f4a3b2;
+  --color-crimson-300: #ef768b;
+  --color-crimson-400: #e94865;
+  --color-crimson-500: #e41a3e;
+  --color-crimson-600: #b61532;
+  --color-crimson-700: #891025;
+  --color-crimson-800: #5b0a19;
+  --color-crimson-900: #2e050c;
+  --color-crimson-950: #170306;
+
+  --color-blue-50: #eceefe;
+  --color-blue-100: #d8dcfd;
+  --color-blue-200: #b1b9fb;
+  --color-blue-300: #8b96f9;
+  --color-blue-400: #6473f7;
+  --color-blue-500: #3d50f5;
+  --color-blue-600: #3140c4;
+  --color-blue-700: #253093;
+  --color-blue-800: #182062;
+  --color-blue-900: #0c1031;
+  --color-blue-950: #060818;
+
+  --color-purple-50: #f5edfe;
+  --color-purple-100: #ebdbfd;
+  --color-purple-200: #d7b7fc;
+  --color-purple-300: #c493fa;
+  --color-purple-400: #b06ff9;
+  --color-purple-500: #9c4bf7;
+  --color-purple-600: #7d3cc6;
+  --color-purple-700: #5e2d94;
+  --color-purple-800: #3e1e63;
+  --color-purple-900: #1f0f31;
+  --color-purple-950: #100719;
+
+  --color-burgundy-50: #f2e6ea;
+  --color-burgundy-100: #d8b3c1;
+  --color-burgundy-200: #cb99ac;
+  --color-burgundy-300: #b26682;
+  --color-burgundy-400: #983359;
+  --color-burgundy-500: #7e002f;
+  --color-burgundy-600: #580021;
+  --color-burgundy-700: #3f0018;
+  --color-burgundy-800: #320013;
+  --color-burgundy-900: #26000e;
+  --color-burgundy-950: #190009;
+
+  --color-coral-50: #fef4f2;
+  --color-coral-100: #fde8e6;
+  --color-coral-200: #fbd1cd;
+  --color-coral-300: #f9bbb3;
+  --color-coral-400: #f7a49a;
+  --color-coral-500: #f58d81;
+  --color-coral-600: #c47167;
+  --color-coral-700: #93554d;
+  --color-coral-800: #623834;
+  --color-coral-900: #311c1a;
+  --color-coral-950: #180e0d;
+
+  --color-teal-50: #ebf8f5;
+  --color-teal-100: #d7f2ec;
+  --color-teal-200: #b0e4d8;
+  --color-teal-300: #88d7c5;
+  --color-teal-400: #61c9b1;
+  --color-teal-500: #39bc9e;
+  --color-teal-600: #2e967e;
+  --color-teal-700: #22715f;
+  --color-teal-800: #174b3f;
+  --color-teal-900: #0b2620;
+  --color-teal-950: #061310;
+
+  --color-gray-50: #f2f2f2;
+  --color-gray-100: #d9d9d9;
+  --color-gray-200: #cccccc;
+  --color-gray-300: #b3b3b3;
+  --color-gray-400: #999999;
+  --color-gray-500: #808080;
+  --color-gray-600: #666666;
+  --color-gray-700: #4d4d4d;
+  --color-gray-800: #333333;
+  --color-gray-900: #1a1a1a;
+  --color-gray-950: #0d0d0d;
+}
+
+* {
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  font-family: var(--font-display);
+}
+
+.dark {
+  background: #000;
+  color: #fff;
+}
+
+input {
+  outline: none;
+}
+
+input:focus {
+  box-shadow: none;
+}
+
+button {
+  cursor: pointer;
+}
