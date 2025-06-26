@@ -90,7 +90,7 @@ export default function Card() {
           onClick={() => handleClick(id)}
         >
           <button
-            className="absolute top-1 right-1 p-0.5 rounded-sm hover:bg-black/10"
+            className="absolute top-1 right-1 p-0.5 rounded-sm hover:bg-black/10 active:bg-black/10 dark:hover:bg-white/15 dark:active:bg-white/15"
             onClick={(e) => handleOpenMenu(e, id)}
           >
             <TablerDotsVertical className="size-3.5" />

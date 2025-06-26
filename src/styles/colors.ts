@@ -58,7 +58,7 @@ export const buttonOutlineColors = {
   gray: "border-gray-200 text-gray-800 hover:bg-gray-100 active:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-800",
 }
 
-export const buttonMenuHoverColors = {
+export const buttonSidebarMenuHoverColors = {
   pink: "hover:bg-pink-600/10 dark:hover:bg-pink-200/10 active:bg-pink-600/10 dark:active:bg-pink-200/10",
   yellow: "hover:bg-yellow-600/10 dark:hover:bg-yellow-200/10 active:bg-yellow-600/10 dark:active:bg-yellow-200/10",
   green: "hover:bg-green-600/10 dark:hover:bg-green-200/10 active:bg-green-600/10 dark:active:bg-green-200/10",
@@ -115,4 +115,19 @@ export const cardHoverColors = {
   coral: "hover:bg-coral-50 dark:hover:bg-coral-900 active:bg-coral-50 dark:active:bg-coral-900",
   teal: "hover:bg-teal-50 dark:hover:bg-teal-900 active:bg-teal-50 dark:active:bg-teal-900",
   gray: "hover:bg-gray-50 dark:hover:bg-gray-900 active:bg-gray-50 dark:active:bg-gray-900",
+}
+
+export const menuHoverColors = {
+  pink: "hover:bg-pink-100 active:bg-pink-100 dark:hover:bg-pink-800 dark:active:bg-pink-800",
+  yellow: "hover:bg-yellow-100 active:bg-yellow-100 dark:hover:bg-yellow-800 dark:active:bg-yellow-800",
+  green: "hover:bg-green-100 active:bg-green-100 dark:hover:bg-green-800 dark:active:bg-green-800",
+  orange: "hover:bg-orange-100 active:bg-orange-100 dark:hover:bg-orange-800 dark:active:bg-orange-800",
+  rose: "hover:bg-rose-100 active:bg-rose-100 dark:hover:bg-rose-800 dark:active:bg-rose-800",
+  crimson: "hover:bg-crimson-100 active:bg-crimson-100 dark:hover:bg-crimson-800 dark:active:bg-crimson-800",
+  blue: "hover:bg-blue-100 active:bg-blue-100 dark:hover:bg-blue-800 dark:active:bg-blue-800",
+  purple: "hover:bg-purple-100 active:bg-purple-100 dark:hover:bg-purple-800 dark:active:bg-purple-800",
+  burgundy: "hover:bg-burgundy-100 active:bg-burgundy-100 dark:hover:bg-burgundy-800 dark:active:bg-burgundy-800",
+  coral: "hover:bg-coral-100 active:bg-coral-100 dark:hover:bg-coral-800 dark:active:bg-coral-800",
+  teal: "hover:bg-teal-100 active:bg-teal-100 dark:hover:bg-teal-800 dark:active:bg-teal-800",
+  gray: "hover:bg-gray-100 active:bg-gray-100 dark:hover:bg-gray-800 dark:active:bg-gray-800",
 }

@@ -1,18 +1,12 @@
 import useSubjectStore from "@/stores/subject";
 import { useNavigate } from "@tanstack/react-router";
 import React, { useRef, useState } from "react";
-import Sort from "../Sort";
+import Sort from "../../layouts/Sort";
 
-export default function Header({
-  isSearch,
-  setIsSearch,
-  input,
-  setInput,
-}) {
+export default function Header({ isSearch, setIsSearch, input, setInput }) {
   const [error, setError] = useState<string>("");
-  const { subjects, currentSubject, setSorted, addItem, countUp } = useSubjectStore(
-    (state) => state
-  );
+  const { subjects, currentSubject, setSorted, addItem, countUp } =
+    useSubjectStore((state) => state);
   const navigate = useNavigate();
 
   function handleChange(value: string) {
@@ -48,7 +42,7 @@ export default function Header({
         checked={isSearch}
         onChange={() => setIsSearch(!isSearch)}
       />
-      <Sort isSubject={false}/>
+      <Sort sortName="item" />
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import useConfigStore from "@/stores/config";
-import { buttonMenuHoverColors } from "@/styles/colors";
+import { buttonSidebarMenuHoverColors } from "@/styles/colors";
 import React from "react";
 
 export function MenuButtonSmall({children,className, onClick}: {children: React.ReactNode, className?: string, onClick?: React.MouseEventHandler}) {
     const color = useConfigStore((state) => state.color);
   return (
     <button
-      className={`flex w-full py-1 rounded-md ${buttonMenuHoverColors[color]} ${className || ""}`}
+      className={`flex w-full py-1 rounded-md ${buttonSidebarMenuHoverColors[color]} ${className || ""}`}
       onClick={onClick}
     >
       {children}
@@ -18,7 +18,7 @@ export function MenuButtonLarge({children, onClick}: {children: React.ReactNode,
   const color = useConfigStore((state) => state.color);
   return (
     <button
-      className={`flex items-center w-full p-2 my-4 rounded-lg ${buttonMenuHoverColors[color]}`}
+      className={`flex items-center w-full p-2 my-4 rounded-lg ${buttonSidebarMenuHoverColors[color]}`}
       onClick={onClick}
     >
       {children}

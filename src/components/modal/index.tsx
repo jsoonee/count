@@ -1,7 +1,7 @@
 import { TablerX } from "@/lib/Icons";
 import useConfigStore from "@/stores/config";
 import useModalStore from "@/stores/modal";
-import { buttonMenuHoverColors } from "@/styles/colors";
+import { buttonSidebarMenuHoverColors } from "@/styles/colors";
 import React, { useEffect } from "react";
 
 export default function Modal() {
@@ -45,7 +45,7 @@ export default function Modal() {
         className="relative sm:max-w-[425px] border-1 dark:border-[#222] bg-white dark:bg-black rounded-lg"
       >
         <button
-          className={`absolute end-0 p-1 m-2 rounded-sm ${buttonMenuHoverColors[color]}`}
+          className={`absolute end-0 p-1 m-2 rounded-sm ${buttonSidebarMenuHoverColors[color]}`}
           onClick={() => closeModal()}
         >
           <TablerX className="size-5" />

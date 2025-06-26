@@ -10,7 +10,7 @@ import useIsMobile from "@/hooks/useIsMobile";
 import { useEffect, useState } from "react";
 import useModalStore from "@/stores/modal";
 import { MenuButtonLarge } from "@/layouts/MenuButton";
-import { buttonMenuHoverColors } from "@/styles/colors";
+import { buttonSidebarMenuHoverColors } from "@/styles/colors";
 import useConfigStore from "@/stores/config";
 
 export default function Sidebar() {
@@ -42,7 +42,7 @@ export default function Sidebar() {
             : isOpenSidebar
             ? "left-70"
             : "left-2"
-        } ${buttonMenuHoverColors[color]}`}
+        } ${buttonSidebarMenuHoverColors[color]}`}
         onClick={() => setIsOpenSidebar(!isOpenSidebar)}
       >
         {isOpenSidebar ? (
