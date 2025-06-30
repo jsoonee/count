@@ -6,13 +6,18 @@ import Sort from "../../layouts/Sort";
 import { TablerPlus } from "@/lib/Icons";
 import { buttonSolidColors } from "@/styles/colors";
 import useConfigStore from "@/stores/config";
-import Subject from "../modal/subject";
+import EditSubject from "../modal/EditSubject";
 import Header from "../modal/Header";
+import { useEffect } from "react";
 
 export default function Subjects() {
-  const subjects = useSubjectStore((state) => state.subjects);
+  const {subjects, setCurrentSubject} = useSubjectStore((state) => state);
   const openModal = useModalStore((state) => state.openModal);
   const color = useConfigStore((state) => state.color);
+
+  useEffect(() => {
+    setCurrentSubject("");
+  }, []);
 
   return (
     <main>
@@ -26,7 +31,7 @@ export default function Subjects() {
               openModal(
                 <>
                   <Header title="Add subject"></Header>
-                  <Subject />
+                  <EditSubject />
                 </>
               )
             }

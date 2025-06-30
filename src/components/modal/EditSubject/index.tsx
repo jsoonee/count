@@ -17,7 +17,7 @@ import {
   inputBorderColors,
 } from "@/styles/colors";
 
-export default function Subject({ subjectEditId }: { subjectEditId?: string }) {
+export default function EditSubject({ subjectEditId }: { subjectEditId?: string }) {
   const { subjects, addSubject, editSubject, setSorted } = useSubjectStore(
     (state) => state
   );

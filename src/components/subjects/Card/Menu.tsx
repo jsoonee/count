@@ -1,5 +1,5 @@
 import Header from "@/components/modal/Header";
-import Subject from "@/components/modal/subject";
+import EditSubject from "@/components/modal/EditSubject";
 import {
   MdiInfomation,
   TaberTrash,
@@ -8,16 +8,30 @@ import {
   TablerInfoFilled,
 } from "@/lib/Icons";
 import useModalStore from "@/stores/modal";
+import useSubjectStore from "@/stores/subject";
 import React from "react";
+import DeleteConfirm from "@/components/modal/DeleteConfirm";
 
 export default function CardMenu({ subjectId, setOpenMenu, menuRef }) {
   const openModal = useModalStore((state) => state.openModal);
+  const removeSubject = useSubjectStore((state) => state.removeSubject);
+
   function handleEditClick(e: React.MouseEvent) {
     setOpenMenu(null);
     openModal(
       <>
         <Header title="Edit subject" />
-        <Subject subjectEditId={subjectId} />
+        <EditSubject subjectEditId={subjectId} />
+      </>
+    );
+  }
+
+  function handleDeleteClick() {
+    setOpenMenu(null);
+    openModal(
+      <>
+        <Header title="Delete Subject"></Header>
+        <DeleteConfirm subjectId={subjectId}/>
       </>
     );
   }
@@ -36,7 +50,7 @@ export default function CardMenu({ subjectId, setOpenMenu, menuRef }) {
         <MdiInfomation />
         <div className="ml-1">View Details</div>
       </div>
-      <div className="flex p-1 my-1">
+      <div className="flex p-1 my-1" onClick={() => handleDeleteClick()}>
         <TaberTrash className="text-red-700" />
         <div className="ml-1">Delete</div>
       </div>

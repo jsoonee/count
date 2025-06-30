@@ -2,8 +2,6 @@ import * as React from "react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
 import Sidebar from "@/components/sidebar";
 import Modal from "@/components/modal";
-import Header from "@/components/header";
-import { useEffect } from "react";
 
 export const Route = createRootRoute({
   component: RootComponent,

@@ -81,7 +81,7 @@ export default function Sort({ sortName }: { sortName: string }) {
     <div className="relative">
       <div className="flex items-center">
         <button
-          className={`p-1 flex justify-center gap-1.5 items-center border-1 w-28 h-9 rounded-l-sm border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
+          className={`p-1 flex justify-center gap-1.5 items-center border-1 w-28 h-9 rounded-l border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
           onClick={() => setOpenSort(!openSort)}
           ref={buttonRef}
         >
@@ -89,7 +89,7 @@ export default function Sort({ sortName }: { sortName: string }) {
           <span>{sortInfo.by}</span>
         </button>
         <button
-          className={`flex justify-center items-center p-1 w-9 h-9 border-t border-r border-b rounded-r-sm border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
+          className={`flex justify-center items-center p-1 w-9 h-9 border-t border-r border-b rounded-r border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
           onClick={handleAscClick}
         >
           {sortInfo.by === "name" ? (
@@ -113,10 +113,10 @@ export default function Sort({ sortName }: { sortName: string }) {
       </div>
       {openSort ? (
         <div ref={dropdownRef}>
-          <ul className="absolute p-1 w-28 top-0 left-0 z-1 border-1 rounded-l-sm rounded-br-sm bg-white dark:bg-[#111] border-gray-50 dark:border-gray-800">
+          <ul className="absolute p-1 w-28 top-0 left-0 z-1 border-1 rounded-l rounded-br bg-white dark:bg-[#111] border-gray-50 dark:border-gray-800">
             {sorts[sortName].map((by: string, i: number) => (
               <li
-                className={`p-1 flex items-center rounded-sm ${buttonSidebarMenuHoverColors[color]}`}
+                className={`p-1 flex items-center rounded ${buttonSidebarMenuHoverColors[color]}`}
                 key={i}
                 onClick={() => handleSortClick(by)}
               >

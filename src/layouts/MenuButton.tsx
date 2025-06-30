@@ -1,12 +1,21 @@
 import useConfigStore from "@/stores/config";
-import { buttonSidebarMenuHoverColors } from "@/styles/colors";
+import {
+  buttonSidebarMenuHoverColors,
+  menuSelectedColors,
+} from "@/styles/colors";
 import React from "react";
 
-export function MenuButtonSmall({children,className, onClick}: {children: React.ReactNode, className?: string, onClick?: React.MouseEventHandler}) {
-    const color = useConfigStore((state) => state.color);
+interface IMenuButton {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: React.MouseEventHandler;
+}
+
+export function MenuButtonSmall({ children, className, onClick }: IMenuButton) {
+  const color = useConfigStore((state) => state.color);
   return (
     <button
-      className={`flex w-full py-1 rounded-md ${buttonSidebarMenuHoverColors[color]} ${className || ""}`}
+      className={`flex w-full py-1 rounded-md hover:bg-black/10 dark:hover:bg-white/10 ${className || ""}`}
       onClick={onClick}
     >
       {children}
@@ -14,7 +23,16 @@ export function MenuButtonSmall({children,className, onClick}: {children: React.
   );
 }
 
-export function MenuButtonLarge({children, onClick}: {children: React.ReactNode, onClick?: React.MouseEventHandler}) {
+export function MenuButtonSelectedSmall({ children, className }: IMenuButton) {
+  const color = useConfigStore((state) => state.color);
+  return (
+    <button className={`flex w-full py-1 rounded ${menuSelectedColors[color]} ${className || ""}`}>
+      {children}
+    </button>
+  );
+}
+
+export function MenuButtonLarge({ children, onClick }: IMenuButton) {
   const color = useConfigStore((state) => state.color);
   return (
     <button
@@ -24,4 +42,4 @@ export function MenuButtonLarge({children, onClick}: {children: React.ReactNode,
       {children}
     </button>
   );
-} 
+}

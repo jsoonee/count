@@ -28,6 +28,7 @@ export default function Items() {
 
   useEffect(() => {
     if (subjects.every(({ id }) => id !== subId)) {
+      setCurrentSubject("");
       navigate({ to: "/" });
     } else {
       setCurrentSubject(subId);
