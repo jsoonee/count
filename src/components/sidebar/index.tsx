@@ -1,25 +1,30 @@
-import TopMenu from "./TopMenu";
-import Subjects from "./Subjects";
-import Logo from "./Logo";
+import { useEffect, useState } from "react";
+
 import {
   TablerSettings,
   TablerSidebarLeftCollapse,
   TablerSidebarLeftExpand,
 } from "@/lib/Icons";
 import useIsMobile from "@/hooks/useIsMobile";
-import { useEffect, useState } from "react";
 import useModalStore from "@/stores/modal";
 import { MenuButtonLarge } from "@/layouts/MenuButton";
 import { buttonSidebarMenuHoverColors } from "@/styles/colors";
 import useConfigStore from "@/stores/config";
 
+import TopMenu from "./TopMenu";
+import Subjects from "./Subjects";
+import Logo from "./Logo";
+import useMobileStore from "@/stores/mobile";
+
 export default function Sidebar() {
   const color = useConfigStore((state) => state.color);
-  const isMobile = useIsMobile();
-  const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(
-    isMobile ? false : true
-  );
+  // const isMobile = useIsMobile();
+  // const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(
+  //   isMobile ? false : true
+  // );
+  const {isMobile, isOpenSidebar, setIsOpenSidebar } = useMobileStore(state => state);
   const { submitted, setSubmitted } = useModalStore((state) => state);
+  
   useEffect(() => {
     setIsOpenSidebar(!isMobile);
   }, [isMobile]);
@@ -36,12 +41,12 @@ export default function Sidebar() {
   return (
     <>
       <button
-        className={`absolute rounded-sm top-4 p-1 z-2 ${
+        className={`absolute rounded-sm top-3 p-1 z-2 ${
           isMobile && isOpenSidebar
             ? "right-2"
             : isOpenSidebar
             ? "left-70"
-            : "left-2"
+            : "left-0"
         } ${buttonSidebarMenuHoverColors[color]}`}
         onClick={() => setIsOpenSidebar(!isOpenSidebar)}
       >
@@ -66,12 +71,6 @@ export default function Sidebar() {
                 <Subjects closeSidebar={closeSidebar} />
               </div>
               <div>
-                {/* <button className="flex items-center w-full hover:bg-black/10 dark:hover:bg-white/10 p-2 my-4 rounded-lg">
-                  <TablerSettings />
-                  <div className="w-auto ml-2">
-                    <div className="justify-start">Settings</div>
-                  </div>
-                </button> */}
                 <MenuButtonLarge>
                   <TablerSettings />
                   <div className="w-auto ml-2">

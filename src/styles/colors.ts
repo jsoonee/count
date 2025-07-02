@@ -79,6 +79,21 @@ export const buttonOutlineColors = {
   gray: "border-gray-200 text-gray-800 hover:bg-gray-100 active:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-800",
 };
 
+export const buttonIconHoverColors = {
+  pink: "hover-bg-pink-50 dark:hover:bg-pink-900",
+  yellow: "hover-bg-yellow-50 dark:hover:bg-yellow-900",
+  green: "hover-bg-green-50 dark:hover:bg-green-900",
+  orange: "hover-bg-orange-50 dark:hover:bg-orange-900",
+  rose: "hover-bg-rose-50 dark:hover:bg-rose-900",
+  crimson: "hover-bg-crimson-50 dark:hover:bg-crimson-900",
+  blue: "hover-bg-blue-50 dark:hover:bg-blue-900",
+  purple: "hover-bg-purple-50 dark:hover:bg-purple-900",
+  burgundy: "hover-bg-burgundy-50 dark:hover:bg-burgundy-900",
+  coral: "hover-bg-coral-50 dark:hover:bg-coral-900",
+  teal: "hover-bg-teal-50 dark:hover:bg-teal-900",
+  gray: "hover-bg-gray-50 dark:hover:bg-gray-900",
+}
+
 export const buttonSidebarMenuHoverColors = {
   pink: "hover:bg-pink-600/10 dark:hover:bg-pink-200/10 active:bg-pink-600/10 dark:active:bg-pink-200/10",
   yellow:

@@ -1,6 +1,7 @@
+import { useNavigate } from "@tanstack/react-router";
+
 import { TablerCircle, TablerPlus } from "@/lib/Icons";
 import useSubjectStore from "@/stores/subject";
-import { useNavigate } from "@tanstack/react-router";
 import useModalStore from "@/stores/modal";
 import { buttonSolidColors } from "@/styles/colors";
 import useConfigStore from "@/stores/config";
@@ -30,7 +31,7 @@ export default function Subjects({
     <>
       {sorted.length ? (
         <>
-          <div className="font-medium text-sm mt-8 ml-2">SUBJECTS</div>
+          <div className="font-medium text-sm mt-8 mb-2 ml-2">SUBJECTS</div>
           <ul className="">
             {sorted.map(({ id, name, emoji, items }) => {
               const sum = items.reduce((acc, cur) => acc + cur.count, 0);
@@ -54,7 +55,7 @@ export default function Subjects({
                 </>
               );
               return (
-                <li key={id}>
+                <li key={id} className="my-1">
                   {currentSubject === id ? (
                     <MenuButtonSelectedSmall className="justify-between pr-2">
                       {inner}

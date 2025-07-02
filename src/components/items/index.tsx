@@ -1,9 +1,10 @@
-import useSubjectStore, { IItem, ISubject } from "@/stores/subject";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+
+import useSubjectStore, { IItem } from "@/stores/subject";
+import { Route } from "@/routes/sub.$subId";
 import Empty from "./Empty";
 import Header from "./Header";
-import { Route } from "@/routes/sub.$subId";
 
 export default function Items() {
   const navigate = useNavigate();
@@ -138,6 +139,7 @@ export default function Items() {
     setIsSearch,
     input,
     setInput,
+    name: sub?.name || "",
   };
 
   const inputRefs = useMemo(() => {
@@ -155,7 +157,7 @@ export default function Items() {
   }, [editId]);
 
   return (
-    <div>
+    <div className="pt-3">
       <Header {...headerProps} />
       {sortedItems.length ? (
         sortedItems.map(({ id, name, count }) => (

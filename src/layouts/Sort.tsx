@@ -18,7 +18,13 @@ const sorts = {
   item: ["name", "count", "created", "updated"],
 };
 
-export default function Sort({ sortName }: { sortName: string }) {
+export default function Sort({
+  sortName,
+  className,
+}: {
+  sortName: string;
+  className?: string;
+}) {
   const { subjects, sortBy, currentSubject, setSubjectSort, setItemSort } =
     useSubjectStore((state) => state);
   const itemSort = subjects.find(({ id }) => id === currentSubject)?.sort || {
@@ -75,21 +81,19 @@ export default function Sort({ sortName }: { sortName: string }) {
     };
   });
 
-  console.log(sortName);
-
   return (
-    <div className="relative">
+    <div className={`relative ${className}`}>
       <div className="flex items-center">
         <button
-          className={`p-1 flex justify-center gap-1.5 items-center border-1 w-28 h-9 rounded-l border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
+          className={`py-1 flex justify-center gap-1.5 items-center border-1 w-24 h-8 rounded-l border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
           onClick={() => setOpenSort(!openSort)}
           ref={buttonRef}
         >
-          <TablerArrowsSort className="size-5" />
-          <span>{sortInfo.by}</span>
+          <TablerArrowsSort className="size-4" />
+          <span className="text-sm">{sortInfo.by}</span>
         </button>
         <button
-          className={`flex justify-center items-center p-1 w-9 h-9 border-t border-r border-b rounded-r border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
+          className={`flex justify-center items-center p-1 w-9 h-8 border-t border-r border-b rounded-r *:size-4.5 border-gray-50 dark:border-gray-800 ${menuHoverColors[color]}`}
           onClick={handleAscClick}
         >
           {sortInfo.by === "name" ? (
@@ -113,14 +117,20 @@ export default function Sort({ sortName }: { sortName: string }) {
       </div>
       {openSort ? (
         <div ref={dropdownRef}>
-          <ul className="absolute p-1 w-28 top-0 left-0 z-1 border-1 rounded-l rounded-br bg-white dark:bg-[#111] border-gray-50 dark:border-gray-800">
+          <ul className="absolute p-1 w-24 top-0 left-0 z-1 border-1 rounded-l rounded-br bg-white dark:bg-[#111] border-gray-50 dark:border-gray-800">
             {sorts[sortName].map((by: string, i: number) => (
               <li
                 className={`p-1 flex items-center rounded ${buttonSidebarMenuHoverColors[color]}`}
                 key={i}
                 onClick={() => handleSortClick(by)}
               >
-                {sortInfo.by === by ? <div className="w-5"><TablerCheck className="size-5"/></div> : <div className="pl-5"></div>}
+                {sortInfo.by === by ? (
+                  <div className="w-4">
+                    <TablerCheck className="size-4" />
+                  </div>
+                ) : (
+                  <div className="pl-4"></div>
+                )}
                 <div className="pl-1 text-sm">{by}</div>
               </li>
             ))}

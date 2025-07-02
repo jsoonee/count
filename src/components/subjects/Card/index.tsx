@@ -1,26 +1,17 @@
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+
 import { TablerCircle, TablerDotsVertical } from "@/lib/Icons";
 import useConfigStore from "@/stores/config";
 import useSubjectStore from "@/stores/subject";
 import { cardHoverColors } from "@/styles/colors";
-import { useNavigate } from "@tanstack/react-router";
-import React, { useEffect, useRef, useState } from "react";
 import CardMenu from "./Menu";
 
 export default function Card() {
   const navigate = useNavigate();
-  const {
-    subjects,
-    sorted,
-    setCurrentSubject,
-    setSorted,
-    editSubject,
-    removeSubject,
-  } = useSubjectStore((state) => state);
-  const [editId, setEditId] = useState<string>("");
-  const [toEdit, setToEdit] = useState<string>("");
+  const { sorted, setCurrentSubject } = useSubjectStore((state) => state);
   const color = useConfigStore((state) => state.color);
   const menuRef = useRef<HTMLDivElement>(null);
-
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   function handleClick(id: string) {
@@ -39,42 +30,6 @@ export default function Card() {
       document.removeEventListener("click", handleOutsideClick);
     };
   });
-
-  function handleEditChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setToEdit(e.target.value);
-  }
-
-  function handleEditClick(subjectId: string, subjectName: string) {
-    if (!editId) {
-      setToEdit(subjectName);
-      setEditId(subjectId);
-    }
-  }
-
-  function handleDeleteClick(subjectId: string) {
-    removeSubject(subjectId);
-    setSorted();
-  }
-
-  function handleNameSubmit(
-    e: React.FormEvent,
-    subjectId: string,
-    subjectName: string
-  ) {
-    e.preventDefault();
-    if (
-      toEdit &&
-      subjects.every(({ id, name }) => id === subjectId || name !== toEdit) &&
-      toEdit !== subjectName
-    ) {
-      const sub = subjects.find(({ id }) => id === subjectId);
-      if (sub) {
-        editSubject(subjectId, { ...sub, name: toEdit });
-        setSorted();
-      }
-    }
-    setEditId("");
-  }
 
   function handleOpenMenu(e: React.MouseEvent, subjectId: string) {
     e.stopPropagation();
@@ -95,7 +50,13 @@ export default function Card() {
           >
             <TablerDotsVertical className="size-3.5" />
           </button>
-          {openMenu === id ? <CardMenu subjectId={id} setOpenMenu={setOpenMenu} menuRef={menuRef} /> : null}
+          {openMenu === id ? (
+            <CardMenu
+              subjectId={id}
+              setOpenMenu={setOpenMenu}
+              menuRef={menuRef}
+            />
+          ) : null}
           {emoji ? (
             <div className="text-xl aspect-square">{emoji}</div>
           ) : (
@@ -105,21 +66,6 @@ export default function Card() {
           )}
           <div className="ml-2">{name}</div>
         </div>
-        // <div className="flex" key={id}>
-        //   {id === editId ? (
-        //     <form
-        //       className="flex"
-        //       onSubmit={(e) => handleNameSubmit(e, id, name)}
-        //     >
-        //       <input type="text" value={toEdit} onChange={handleEditChange} />
-        //       <button type="submit">ok</button>
-        //     </form>
-        //   ) : (
-        //     <div onClick={() => handleClick(id)}>{name}</div>
-        //   )}
-        //   <button onClick={() => handleEditClick(id, name)}>edt</button>
-        //   <button onClick={() => handleDeleteClick(id)}>del</button>
-        // </div>
       ))}
     </div>
   );

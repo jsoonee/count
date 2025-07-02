@@ -24,7 +24,6 @@ export default function EditSubject({ subjectEditId }: { subjectEditId?: string 
   const currentSub = subjects.find((sub) => sub.id === subjectEditId) || null;
   const [newName, setNewName] = useState<string>(currentSub?.name || "");
   const [error, setError] = useState<string>("");
-  // const [emoji, setEmoji] = useState<EmojiClickData | null>(null);
   const [emoji, setEmoji] = useState<string>(currentSub?.emoji || "");
   const { isEmojiOpen, setEmojiOpen, closeModal, setSubmitted } = useModalStore(
     (state) => state
@@ -128,8 +127,6 @@ export default function EditSubject({ subjectEditId }: { subjectEditId?: string 
         <div className="flex relative mb-6">
           <button
             type="button"
-            // className="flex items-center border border-[#bdf] dark:border-[#237] rounded-sm bg-[#def] dark:bg-[#124] hover:bg-[#bdf] dark:hover:bg-[#237] h-10 group mr-2"
-            // className={`flex items-center border border-[--${color}-200] dark:border-[--${color}-700] rounded-sm bg-${color}-200 dark:bg-${color}-800 hover:bg-${color}-200 dark:hover:bg-[var(--${color}-700)] h-10 group mr-2`}
             className={`flex items-center border h-10 rounded-sm group mr-2 ${buttonSurfaceColors[color]}`}
             onClick={() => setEmojiOpen(!isEmojiOpen)}
             ref={buttonRef}
