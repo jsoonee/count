@@ -139,7 +139,7 @@ export default function Items() {
     setIsSearch,
     input,
     setInput,
-    name: sub?.name || "",
+    subInfo: { emoji: sub?.emoji || "", name: sub?.name || "" },
   };
 
   const inputRefs = useMemo(() => {
@@ -157,7 +157,7 @@ export default function Items() {
   }, [editId]);
 
   return (
-    <div className="pt-3">
+    <div>
       <Header {...headerProps} />
       {sortedItems.length ? (
         sortedItems.map(({ id, name, count }) => (

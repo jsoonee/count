@@ -41,7 +41,7 @@ export default function Sidebar() {
   return (
     <>
       <button
-        className={`absolute rounded-sm top-3 p-1 z-2 ${
+        className={`absolute rounded-sm top-2 p-1 z-2 ${
           isMobile && isOpenSidebar
             ? "right-2"
             : isOpenSidebar

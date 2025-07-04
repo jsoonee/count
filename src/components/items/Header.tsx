@@ -13,7 +13,7 @@ export default function Header({
   setIsSearch,
   input,
   setInput,
-  name,
+  subInfo,
 }) {
   const color = useConfigStore((state) => state.color);
   const { subjects, currentSubject, setSorted, addItem, countUp } =
@@ -40,16 +40,17 @@ export default function Header({
 
   return (
     <>
-      <div className={`flex items-center ${isOpenSidebar ? "" : "pl-8"}`}>
+      <div className={`p-2 flex items-center ${isOpenSidebar ? "" : "pl-8"}`}>
         <button
-          className={`p-1 rounded-sm ${buttonIconHoverColors[color]}`}
+          className={`p-1 mr-2 rounded-sm ${buttonIconHoverColors[color]}`}
           onClick={() => navigate({ to: "/" })}
         >
           <TablerArrowLeft className="size-6" />
         </button>
-        <div>{name}</div>
+        <div className="mr-1">{subInfo.emoji}</div>
+        <div className="text-lg">{subInfo.name}</div>
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between px-2">
         <div className="flex items-center">
           <input
             className={`h-11 px-4 border-2 rounded-sm border-[#ddd] dark:border-[#333] ${inputBorderColors[color]}`}
