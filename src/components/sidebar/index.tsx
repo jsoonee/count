@@ -15,6 +15,9 @@ import TopMenu from "./TopMenu";
 import Subjects from "./Subjects";
 import Logo from "./Logo";
 import useMobileStore from "@/stores/mobile";
+import Header from "../modal/Header";
+import EditSubject from "../modal/EditSubject";
+import Settings from "../modal/settings";
 
 export default function Sidebar() {
   const color = useConfigStore((state) => state.color);
@@ -22,9 +25,12 @@ export default function Sidebar() {
   // const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(
   //   isMobile ? false : true
   // );
-  const {isMobile, isOpenSidebar, setIsOpenSidebar } = useMobileStore(state => state);
+  const { isMobile, isOpenSidebar, setIsOpenSidebar } = useMobileStore(
+    (state) => state
+  );
   const { submitted, setSubmitted } = useModalStore((state) => state);
-  
+  const openModal = useModalStore((state) => state.openModal);
+
   useEffect(() => {
     setIsOpenSidebar(!isMobile);
   }, [isMobile]);
@@ -38,6 +44,15 @@ export default function Sidebar() {
     if (isMobile) setIsOpenSidebar(false);
   }
 
+  function handleSettingsClick() {
+    openModal(
+      <>
+        <Header title="Settings" />
+        <Settings />
+      </>
+    );
+  }
+
   return (
     <>
       <button
@@ -46,7 +61,7 @@ export default function Sidebar() {
             ? "right-2"
             : isOpenSidebar
             ? "left-70"
-            : "left-0"
+            : "left-2"
         } ${buttonSidebarMenuHoverColors[color]}`}
         onClick={() => setIsOpenSidebar(!isOpenSidebar)}
       >
@@ -70,14 +85,10 @@ export default function Sidebar() {
                 <TopMenu closeSidebar={closeSidebar} />
                 <Subjects closeSidebar={closeSidebar} />
               </div>
-              <div>
-                <MenuButtonLarge>
-                  <TablerSettings />
-                  <div className="w-auto ml-2">
-                    <div className="justify-start">Settings</div>
-                  </div>
-                </MenuButtonLarge>
-              </div>
+              <MenuButtonLarge onClick={() => handleSettingsClick()}>
+                <TablerSettings />
+                <div className="ml-2">Settings</div>
+              </MenuButtonLarge>
             </div>
           </aside>
         </>

@@ -5,7 +5,7 @@ import useConfigStore from "@/stores/config";
 import useSubjectStore from "@/stores/subject";
 import Sort from "../../layouts/Sort";
 import { TablerArrowLeft } from "@/lib/Icons";
-import { buttonIconHoverColors, inputBorderColors } from "@/styles/colors";
+import { buttonSidebarMenuHoverColors, inputBorderColors } from "@/styles/colors";
 import useMobileStore from "@/stores/mobile";
 
 export default function Header({
@@ -40,9 +40,9 @@ export default function Header({
 
   return (
     <>
-      <div className={`p-2 flex items-center ${isOpenSidebar ? "" : "pl-8"}`}>
+      <div className={`p-2 flex items-center ${isOpenSidebar ? "" : "pl-10"}`}>
         <button
-          className={`p-1 mr-2 rounded-sm ${buttonIconHoverColors[color]}`}
+          className={`p-1 mr-2 rounded-sm ${buttonSidebarMenuHoverColors[color]}`}
           onClick={() => navigate({ to: "/" })}
         >
           <TablerArrowLeft className="size-6" />

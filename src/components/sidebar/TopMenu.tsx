@@ -18,9 +18,7 @@ export default function TopMenu({
   return (
     <MenuButtonLarge onClick={() => handleHomeClick()}>
       <TablerHome />
-      <div className="w-auto ml-2">
-        <div className="justify-start">Home</div>
-      </div>
+      <div className="ml-2">Home</div>
     </MenuButtonLarge>
   );
 }

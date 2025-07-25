@@ -13,7 +13,7 @@ interface ConfigStore {
 const useConfigStore = create<ConfigStore>((set, get) => {
   const storage = getItem("config");
   const initialState = {
-    username: storage?.username || "username",
+    username: storage?.username || "",
     theme: storage?.theme || "os",
     color: storage?.color || "pink"
   };

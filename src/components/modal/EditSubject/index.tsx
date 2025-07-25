@@ -41,8 +41,6 @@ export default function EditSubject({ subjectEditId }: { subjectEditId?: string 
     inputRef.current?.focus();
   }, []);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
       if (

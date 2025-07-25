@@ -25,12 +25,12 @@ export default function Subjects() {
 
   return (
     <main>
-      <div className={`flex justify-between items-center mx-6 ${isOpenSidebar ? "" : "pl-4"}`}>
-        <h1 className="text-2xl font-medium">Subjects</h1>
+      <div className={`flex justify-between items-center py-1 ${isOpenSidebar ? "" : "pl-4"}`}>
+        <h1 className="text-2xl font-medium ml-8">Subjects</h1>
         <div className="flex items-center">
-          <Sort sortName="subject" className="mx-4" />
+          <Sort sortName="subject" />
           <button
-            className={`flex justify-center items-center p-2 my-2 pl-4 pr-5 rounded-lg ${buttonSolidColors[color]}`}
+            className={`flex justify-center items-center mx-4 p-2 pl-4 pr-5 rounded-lg ${buttonSolidColors[color]}`}
             onClick={() =>
               openModal(
                 <>
