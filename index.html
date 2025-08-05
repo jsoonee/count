@@ -9,19 +9,23 @@
     <script>
       function updateDarkMode(e) {
         try {
-          const config = JSON.parse(localStorage.getItem("config") || '{}');
+          const config = JSON.parse(localStorage.getItem("config") || "{}");
           const theme = config.theme;
-          if (theme === "dark" || theme ==="light") return;
+          if (theme === "dark" || theme === "light") {
+            document.documentElement.classList.toggle("dark", theme === "dark");
+          } else {
+            document.documentElement.classList.toggle("dark", e.matches);
+          }
         } catch (err) {
           console.error(err);
         }
-        document.documentElement.classList.toggle("dark", e.matches);
       }
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       updateDarkMode(mediaQuery);
       mediaQuery.addEventListener("change", updateDarkMode);
     </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="src/main.tsx"></script>

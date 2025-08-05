@@ -5,7 +5,6 @@ import {
   TablerSidebarLeftCollapse,
   TablerSidebarLeftExpand,
 } from "@/lib/Icons";
-import useIsMobile from "@/hooks/useIsMobile";
 import useModalStore from "@/stores/modal";
 import { MenuButtonLarge } from "@/layouts/MenuButton";
 import { buttonSidebarMenuHoverColors } from "@/styles/colors";
@@ -16,15 +15,10 @@ import Subjects from "./Subjects";
 import Logo from "./Logo";
 import useMobileStore from "@/stores/mobile";
 import Header from "../modal/Header";
-import EditSubject from "../modal/EditSubject";
 import Settings from "../modal/settings";
 
 export default function Sidebar() {
   const color = useConfigStore((state) => state.color);
-  // const isMobile = useIsMobile();
-  // const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(
-  //   isMobile ? false : true
-  // );
   const { isMobile, isOpenSidebar, setIsOpenSidebar } = useMobileStore(
     (state) => state
   );

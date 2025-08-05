@@ -15,7 +15,7 @@ const useConfigStore = create<ConfigStore>((set, get) => {
   const initialState = {
     username: storage?.username || "",
     theme: storage?.theme || "os",
-    color: storage?.color || "pink"
+    color: storage?.color || "pink",
   };
 
   function setStorage() {
@@ -23,7 +23,7 @@ const useConfigStore = create<ConfigStore>((set, get) => {
     const config = {
       username: username,
       theme: theme,
-      color: color
+      color: color,
     };
     setItem("config", config);
   }
@@ -36,11 +36,16 @@ const useConfigStore = create<ConfigStore>((set, get) => {
     },
     setTheme: (theme) => {
       set({ theme: theme });
+      if (theme === "dark" || theme === "light") {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+      } else {
+        document.documentElement.classList.toggle("dark", window.matchMedia("(prefers-color-scheme: dark)").matches)
+      }
       setStorage();
     },
     setColor: (color) => {
-      set({ color: color })
-    }
+      set({ color: color });
+    },
   };
 });
 
