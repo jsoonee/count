@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 
 import { MdiCount } from "@/lib/Icons";
 import useConfigStore from "@/stores/config";
-import { buttonSidebarMenuHoverColors } from "@/styles/colors";
+import { buttonSidebarMenuHoverColors, logoColors } from "@/styles/colors";
 
 export default function Logo({ closeSidebar }: { closeSidebar: () => void }) {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function Logo({ closeSidebar }: { closeSidebar: () => void }) {
           className={`px-2 py-1 rounded-md flex items-center ${buttonSidebarMenuHoverColors[color]}`}
           onClick={() => handleLogoClick()}
         >
-          <div>
+          <div className={logoColors[color]}>
             <MdiCount className="size-12 mr-2" />
           </div>
           <div>Count</div>

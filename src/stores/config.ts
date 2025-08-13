@@ -39,7 +39,10 @@ const useConfigStore = create<ConfigStore>((set, get) => {
       if (theme === "dark" || theme === "light") {
         document.documentElement.classList.toggle("dark", theme === "dark");
       } else {
-        document.documentElement.classList.toggle("dark", window.matchMedia("(prefers-color-scheme: dark)").matches)
+        document.documentElement.classList.toggle(
+          "dark",
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        );
       }
       setStorage();
     },

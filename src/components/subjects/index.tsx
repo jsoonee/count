@@ -25,7 +25,7 @@ export default function Subjects() {
 
   return (
     <main>
-      <div className={`flex justify-between items-center py-1 ${isOpenSidebar ? "" : "pl-4"}`}>
+      <div className={`flex justify-between items-center pt-3 pb-1 ${isOpenSidebar ? "" : "pl-4"}`}>
         <h1 className="text-2xl font-medium ml-8">Subjects</h1>
         <div className="flex items-center">
           <Sort sortName="subject" />

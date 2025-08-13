@@ -36,9 +36,9 @@ export const buttonSurfaceColors = {
     "bg-purple-100 border-purple-200 hover:bg-purple-200 active:bg-purple-200 dark:bg-purple-800 dark:border-purple-700 dark:hover:bg-purple-700 dark:active:bg-purple-700",
   burgundy:
     "bg-burgundy-100 border-burgundy-200 hover:bg-burgundy-200 active:bg-burgundy-200 dark:bg-burgundy-800 dark:border-burgundy-700 dark:hover:bg-burgundy-700 dark:active:bg-burgundy-700",
-  teal: "bg-teal-100 border-teal-200 hover:bg-teal-200 active:bg-coral-200 dark:bg-teal-800 dark:border-teal-700 dark:hover:bg-teal-700 dark:active:bg-teal-700",
   coral:
-    "bg-coral-100 border-coral-200 hover:bg-coral-200 active:bg-teal-200 dark:bg-coral-800 dark:border-coral-700 dark:hover:bg-coral-700 dark:active:bg-coral-700",
+    "bg-coral-100 border-coral-200 hover:bg-coral-200 active:bg-coral-200 dark:bg-coral-800 dark:border-coral-700 dark:hover:bg-coral-700 dark:active:bg-coral-700",
+  teal: "bg-teal-100 border-teal-200 hover:bg-teal-200 active:bg-teal-200 dark:bg-teal-800 dark:border-teal-700 dark:hover:bg-teal-700 dark:active:bg-teal-700",
   gray: "bg-gray-100 border-gray-200 hover:bg-gray-200 active:bg-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:active:bg-gray-700",
 };
 
@@ -80,41 +80,56 @@ export const buttonOutlineColors = {
 };
 
 export const buttonIconHoverColors = {
-  pink: "hover-bg-pink-50 dark:hover:bg-pink-900",
-  yellow: "hover-bg-yellow-50 dark:hover:bg-yellow-900",
-  green: "hover-bg-green-50 dark:hover:bg-green-900",
-  orange: "hover-bg-orange-50 dark:hover:bg-orange-900",
-  rose: "hover-bg-rose-50 dark:hover:bg-rose-900",
-  crimson: "hover-bg-crimson-50 dark:hover:bg-crimson-900",
-  blue: "hover-bg-blue-50 dark:hover:bg-blue-900",
-  purple: "hover-bg-purple-50 dark:hover:bg-purple-900",
-  burgundy: "hover-bg-burgundy-50 dark:hover:bg-burgundy-900",
-  coral: "hover-bg-coral-50 dark:hover:bg-coral-900",
-  teal: "hover-bg-teal-50 dark:hover:bg-teal-900",
-  gray: "hover-bg-gray-50 dark:hover:bg-gray-900",
-}
+  pink: "hover:bg-pink-50 dark:hover:bg-pink-900 active:bg-pink-50 dark:active:bg-pink-900",
+  yellow: "hover:bg-yellow-50 dark:hover:bg-yellow-900 active:bg-yellow-50 dark:active:bg-yellow-900",
+  green: "hover:bg-green-50 dark:hover:bg-green-900 active:bg-green-50 dark:active:bg-green-900",
+  orange: "hover:bg-orange-50 dark:hover:bg-orange-900 active:bg-orange-50 dark:active:bg-orange-900",
+  rose: "hover:bg-rose-50 dark:hover:bg-rose-900 active:bg-rose-50 dark:active:bg-rose-900",
+  crimson: "hover:bg-crimson-50 dark:hover:bg-crimson-900 active:bg-crimson-50 dark:active:bg-crimson-900",
+  blue: "hover:bg-blue-50 dark:hover:bg-blue-900 active:bg-blue-50 dark:active:bg-blue-900",
+  purple: "hover:bg-purple-50 dark:hover:bg-purple-900 active:bg-purple-50 dark:active:bg-purple-900",
+  burgundy: "hover:bg-burgundy-50 dark:hover:bg-burgundy-900 active:bg-burgundy-50 dark:active:bg-burgundy-900",
+  coral: "hover:bg-coral-50 dark:hover:bg-coral-900 active:bg-coral-50 dark:active:bg-coral-900",
+  teal: "hover:bg-teal-50 dark:hover:bg-teal-900 active:bg-teal-50 dark:active:bg-teal-900",
+  gray: "hover:bg-gray-50 dark:hover:bg-gray-900 active:bg-gray-50 dark:active:bg-gray-900",
+};
 
 export const buttonSidebarMenuHoverColors = {
-  pink: "hover:bg-pink-600/10 dark:hover:bg-pink-200/10 active:bg-pink-600/10 dark:active:bg-pink-200/10",
+  pink: "hover:bg-pink-600/10 dark:hover:bg-pink-200/20 active:bg-pink-600/10 dark:active:bg-pink-200/20",
   yellow:
-    "hover:bg-yellow-600/10 dark:hover:bg-yellow-200/10 active:bg-yellow-600/10 dark:active:bg-yellow-200/10",
+    "hover:bg-yellow-600/10 dark:hover:bg-yellow-200/20 active:bg-yellow-600/10 dark:active:bg-yellow-200/20",
   green:
-    "hover:bg-green-600/10 dark:hover:bg-green-200/10 active:bg-green-600/10 dark:active:bg-green-200/10",
+    "hover:bg-green-600/10 dark:hover:bg-green-200/20 active:bg-green-600/10 dark:active:bg-green-200/20",
   orange:
-    "hover:bg-orange-600/10 dark:hover:bg-orange-200/10 active:bg-orange-600/10 dark:active:bg-orange-200/10",
-  rose: "hover:bg-rose-600/10 dark:hover:bg-rose-200/10 active:bg-rose-600/10 dark:active:bg-rose-200/10",
+    "hover:bg-orange-600/10 dark:hover:bg-orange-200/20 active:bg-orange-600/10 dark:active:bg-orange-200/20",
+  rose: "hover:bg-rose-600/10 dark:hover:bg-rose-200/20 active:bg-rose-600/10 dark:active:bg-rose-200/20",
   crimson:
-    "hover:bg-crimson-600/10 dark:hover:bg-crimson-200/10 active:bg-crimson-600/10 dark:active:bg-crimson-200/10",
-  blue: "hover:bg-blue-600/10 dark:hover:bg-blue-200/10 active:bg-blue-600/10 dark:active:bg-blue-200/10",
+    "hover:bg-crimson-600/10 dark:hover:bg-crimson-200/20 active:bg-crimson-600/10 dark:active:bg-crimson-200/20",
+  blue: "hover:bg-blue-600/10 dark:hover:bg-blue-200/20 active:bg-blue-600/10 dark:active:bg-blue-200/20",
   purple:
-    "hover:bg-purple-600/10 dark:hover:bg-purple-200/10 active:bg-purple-600/10 dark:active:bg-purple-200/10",
+    "hover:bg-purple-600/10 dark:hover:bg-purple-200/20 active:bg-purple-600/10 dark:active:bg-purple-200/20",
   burgundy:
-    "hover:bg-burgundy-600/10 dark:hover:bg-burgundy-200/10 active:bg-burgundy-600/10 dark:active:bg-burgundy-200/10",
+    "hover:bg-burgundy-600/10 dark:hover:bg-burgundy-200/20 active:bg-burgundy-600/10 dark:active:bg-burgundy-200/20",
   coral:
-    "hover:bg-coral-600/10 dark:hover:bg-coral-200/10 active:bg-coral-600/10 dark:active:bg-coral-200/10",
-  teal: "hover:bg-teal-600/10 dark:hover:bg-teal-200/10 active:bg-teal-600/10 dark:active:bg-teal-200/10",
-  gray: "hover:bg-gray-600/10 dark:hover:bg-gray-200/10 active:bg-gray-600/10 dark:active:bg-gray-200/10",
+    "hover:bg-coral-600/10 dark:hover:bg-coral-200/20 active:bg-coral-600/10 dark:active:bg-coral-200/20",
+  teal: "hover:bg-teal-600/10 dark:hover:bg-teal-200/20 active:bg-teal-600/10 dark:active:bg-teal-200/20",
+  gray: "hover:bg-gray-600/10 dark:hover:bg-gray-200/20 active:bg-gray-600/10 dark:active:bg-gray-200/20",
 };
+
+export const logoColors = {
+  pink: "text-pink-600 dark:text-pink-300",
+  yellow: "text-yellow-600 dark:text-yellow-300",
+  green: "text-green-600 dark:text-green-300",
+  orange: "text-orange-600 dark:text-orange-300",
+  rose: "text-rose-600 dark:text-rose-300",
+  crimson: "text-crimson-600 dark:text-crimson-300",
+  blue: "text-blue-600 dark:text-blue-300",
+  purple: "text-purple-600 dark:text-purple-300",
+  burgundy: "text-burgundy-600 dark:text-burgundy-300",
+  coral: "text-coral-600 dark:text-coral-300",
+  teal: "text-teal-600 dark:text-teal-300",
+  gray: "text-black dark:text-white",
+}
 
 export const sidebarColors = {
   pink: "bg-pink-50 dark:bg-pink-900/70",
@@ -168,23 +183,23 @@ export const cardHoverColors = {
 };
 
 export const menuSelectedColors = {
-  pink: "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-400",
+  pink: "bg-pink-100 text-pink-800 dark:bg-pink-700 dark:text-pink-300",
   yellow:
-    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-400",
-  green: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-400",
+    "bg-yellow-200 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-300",
+  green: "bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-300",
   orange:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-400",
-  rose: "bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-400",
+    "bg-orange-100 text-orange-800 dark:bg-orange-800 dark:text-orange-300",
+  rose: "bg-rose-200 text-rose-800 dark:bg-rose-800 dark:text-rose-300",
   crimson:
-    "bg-crimson-100 text-crimson-800 dark:bg-crimson-900 dark:text-crimson-400",
-  blue: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-400",
+    "bg-crimson-100 text-crimson-800 dark:bg-crimson-800 dark:text-crimson-300",
+  blue: "bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-300",
   purple:
-    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-400",
+    "bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-300",
   burgundy:
-    "bg-burgundy-100 text-burgundy-800 dark:bg-burgundy-900 dark:text-burgundy-400",
-  coral: "bg-coral-100 text-coral-800 dark:bg-coral-900 dark:text-coral-400",
-  teal: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-400",
-  gray: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-400",
+    "bg-burgundy-100 text-burgundy-800 dark:bg-burgundy-800 dark:text-burgundy-300",
+  coral: "bg-coral-200 text-coral-800 dark:bg-coral-800 dark:text-coral-300",
+  teal: "bg-teal-100 text-teal-800 dark:bg-teal-800 dark:text-teal-300",
+  gray: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300",
 };
 
 export const menuHoverColors = {

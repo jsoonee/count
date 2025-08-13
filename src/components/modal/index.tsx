@@ -42,7 +42,7 @@ export default function Modal() {
     >
       <div
         id="modal-content"
-        className="relative sm:max-w-[425px] border-1 rounded-lg bg-white border-gray-50 dark:border-[#222] dark:bg-black"
+        className="relative sm:max-w-[32rem] border-1 rounded-lg bg-white border-gray-50 dark:border-[#222] dark:bg-black"
       >
         <button
           className={`absolute end-0 p-1 m-2 rounded-sm ${buttonSidebarMenuHoverColors[color]}`}
